@@ -1,0 +1,13 @@
+{
+    "name": "atimos/php_iterator",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Alexander Seppälä",
+            "email": "dev@timot.se"
+        }
+    ],
+    "require": {
+        "phan/phan": "^2.2"
+    }
+}
