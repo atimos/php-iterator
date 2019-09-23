@@ -37,7 +37,7 @@ class StdIterator implements \Iterator
         return $this->item->getValue();
     }
 
-    public function key() : scalar
+    public function key() : int
     {
         return $this->idx;
     }
