@@ -16,12 +16,12 @@ class Inspector implements Iterator
 
     public function next() : Item
     {
-        $value = $this->inner->next();
+        $item = $this->inner->next();
 
-        if ($value->hasValue()) {
-            $this->callback($value->getValue());
+        if ($item->hasValue()) {
+            ($this->callback)($item->getValue());
         }
 
-        return $value;
+        return $item;
     }
 }

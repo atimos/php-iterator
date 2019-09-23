@@ -16,16 +16,15 @@ class Filter implements Iterator
 
     public function next() : Item
     {
-        $value = $this->inner->next();
+        $item = $this->inner->next();
 
-        if ($value->hasValue()) {
-            $innerValue = $value->getValue();
-
-            if (!$this->filter($innerValue)) {
-                $value->replaceWithEmpty();
+        while($item->hasValue()) {
+            if (($this->filter)($item->getValue())) {
+                break;
             }
+            $item = $this->inner->next();
         }
 
-        return $value;
+        return $item;
     }
 }
