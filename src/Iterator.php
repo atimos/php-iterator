@@ -1,52 +1,16 @@
 <?php declare(strict_types=1);
 namespace Iterator;
 
-trait Iterator 
+interface Iterator extends \IteratorAggregate
 {
-    abstract public function next() : Item;
-
-    public function map(Callable $mapper) : Map
-    {
-        return new Map($this, $mapper);
-    }
-
-    public function filter(Callable $filter) : Filter
-    {
-        return new Filter($this, $filter);
-    }
-
-    public function zip(Iterator $other) : Zip
-    {
-        return new Zip($this, $other);
-    }
-
-    public function chain(Iterator $other) : Chain
-    {
-        return new Chain($this, $other);
-    }
-
-    public function inspect(Callable $callback) : Inspector
-    {
-        return new Inspector($this, $callback);
-    }
-
-    public function getIterator() : StdIterator
-    {
-        return new StdIterator($this);
-    }
-
-    public function forEach(Callable $callback) : void
-    {
-        for_each($this, $callback);
-    }
-
-    public function fold(mixed $init, Callable $callback) : mixed
-    {
-        return fold($this, $init, $callback);
-    }
-
-    public function toArray() : array
-    {
-        return to_array($this);
-    }
+    public function next() : Item;
+    public function map(Callable $mapper) : Map;
+    public function filter(Callable $filter) : Filter;
+    public function zip(Iterator $other) : Zip;
+    public function chain(Iterator $other) : Chain;
+    public function inspect(Callable $callback) : Inspector;
+    public function getIterator() : \Traversable;
+    public function forEach(Callable $callback) : void;
+    public function fold($init, Callable $callback);
+    public function toArray() : array;
 }

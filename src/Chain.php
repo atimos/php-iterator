@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 namespace Iterator;
 
-class Chain
+class Chain implements Iterator
 {
-    use Iterator;
+    use IteratorImpl;
 
     private $inner;
     private $other;

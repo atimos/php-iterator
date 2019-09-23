@@ -3,17 +3,17 @@ namespace Iterator;
 
 function for_each(Iterator $iter, Callable $callback) : void
 {
-    $item = $this->next();
+    $item = $iter->next();
 
     while ($item->hasValue()) {
-        $this->callback($item->getValue());
+        $callback($item->getValue());
         $item = $iter->next();
     }
 }
 
 function to_array(Iterator $iter) : array
 {
-    $item = $this->next();
+    $item = $iter->next();
     $values = [];
 
     while ($item->hasValue()) {
@@ -26,12 +26,15 @@ function to_array(Iterator $iter) : array
 
 function fold(Iterator $iter, mixed $init, Callable $callback) : mixed
 {
-    $item = $this->next();
+    $item = $iter->next();
     $result = $init;
 
     while ($item->hasValue()) {
-        $result = $this->callback(clone $result, $item->getValue());
-        $item = $this->next();
+        if (is_object($result)) {
+            $result = clone $result;
+        }
+        $result = $callback($result, $item->getValue());
+        $item = $iter->next();
     }
 
     return $result;

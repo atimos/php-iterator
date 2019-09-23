@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 namespace Iterator;
 
-class Zip
+class Zip implements Iterator
 {
-    use Iterator;
+    use IteratorImpl;
 
     private $inner;
     private $other;

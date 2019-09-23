@@ -6,7 +6,7 @@ class Item
     protected $hasValue = false;
     protected $value = null;
 
-    private function __construct(mixed $value, bool $hasValue)
+    private function __construct($value, bool $hasValue)
     {
         $this->value = $value;
         $this->hasValue = $hasValue;
@@ -17,15 +17,21 @@ class Item
         return new Self(null, false);
     }
 
-    public static function createWithValue(mixed $value) : Self
+    public static function createFromValue($value) : Self
     {
+        if (is_object($value)) {
+            $value = clone $value;
+        }
         return new Self($value, true);
     }
 
-    public function replaceWithValue(mixed $value)
+    public function replaceWithValue($value)
     {
+        if (is_object($value)) {
+            $value = clone $value;
+        }
         $this->hasValue = true;
-        $this->value = clone $value;
+        $this->value = $value;
     }
 
     public function replaceWithEmpty()
@@ -44,10 +50,14 @@ class Item
         return $this->hasValue;
     }
 
-    public function getValue() : mixed
+    public function getValue()
     {
         if ($this->hasValue) {
-            return clone $this->value;
+            $value = $this->value;
+            if (is_object($value)) {
+                $value = clone $value;
+            }
+            return $value;
         }
 
         throw new \RuntimeException('has no value');

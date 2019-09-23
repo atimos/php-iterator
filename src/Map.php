@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 namespace Iterator;
 
-class Map
+class Map implements Iterator
 {
-    use Iterator;
+    use IteratorImpl;
 
     private $mapper;
     private $inner;
@@ -19,7 +19,7 @@ class Map
         $item = $this->inner->next();
 
         if ($item->hasValue()) {
-            $item->replaceWithValue($this->mapper($item->getValue()));
+            $item->replaceWithValue(($this->mapper)($item->getValue()));
         }
 
         return $item;

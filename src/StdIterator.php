@@ -28,7 +28,7 @@ class StdIterator implements \Iterator
         return $this->item->hasValue();
     }
 
-    public function current() : mixed
+    public function current()
     {
         if (!$this->valid()) {
             throw new RuntimeException('Invalid value');
