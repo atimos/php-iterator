@@ -39,6 +39,10 @@ class StdIterator implements \Iterator
 
     public function key() : int
     {
+        if (!$this->valid()) {
+            return null;
+        }
+
         return $this->idx;
     }
 }
