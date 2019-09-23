@@ -6,23 +6,23 @@ class Item
     protected $hasValue = false;
     protected $value = null;
 
-    private function __construct($value, $hasValue)
+    private function __construct(mixed $value, bool $hasValue)
     {
         $this->value = $value;
         $this->hasValue = $hasValue;
     }
 
-    public static function createEmpty()
+    public static function createEmpty() : Self
     {
         return new Self(null, false);
     }
 
-    public static function createWithValue($value)
+    public static function createWithValue(mixed $value) : Self
     {
         return new Self($value, true);
     }
 
-    public function replaceWithValue($value)
+    public function replaceWithValue(mixed $value)
     {
         $this->hasValue = true;
         $this->value = clone $value;
@@ -34,17 +34,17 @@ class Item
         $this->value = null;
     }
 
-    public function isEmpty()
+    public function isEmpty() : bool
     {
         return !$this->hasValue;
     }
 
-    public function hasValue()
+    public function hasValue() : bool
     {
         return $this->hasValue;
     }
 
-    public function getValue()
+    public function getValue() : mixed
     {
         if ($this->hasValue) {
             return clone $this->value;
