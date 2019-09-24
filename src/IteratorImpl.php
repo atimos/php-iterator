@@ -3,11 +3,6 @@ namespace Iterator;
 
 trait IteratorImpl
 {
-    public static function from(\Traversable $iter) : Iterator
-    {
-        return new TraversableIter($iter);
-    }
-
     public function map(Callable $mapper) : Map
     {
         return new Map($this, $mapper);
