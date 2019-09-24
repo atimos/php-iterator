@@ -3,6 +3,11 @@ namespace Iterator;
 
 trait IteratorImpl
 {
+    public static function from(\Traversable $iter) : Iterator
+    {
+        return new TraversableIter($iter);
+    }
+
     public function map(Callable $mapper) : Map
     {
         return new Map($this, $mapper);
@@ -45,6 +50,20 @@ trait IteratorImpl
 
     public function toArray() : array
     {
-        return to_array($this);
+        return $this->fold([], function($result, $item) {
+            $result[] = $item;
+            return $result;
+        });
+    }
+
+    public function toAssocArray() : array
+    {
+        return $this->fold([], function($result, $item) {
+            if (!$item instanceof KeyValue) {
+                throw new \RuntimeException('item has to be an instance of ' . KeyValue::class);
+            }
+            $result[$item->key] = $item->value;
+            return $result;
+        });
     }
 }

@@ -1,26 +1,24 @@
 <?php declare(strict_types=1);
 namespace Iterator;
 
-class ArrayKeyIter implements Iterator
+class TraversableKeyIter implements Iterator
 {
     use IteratorImpl;
 
     private $inner;
 
-    public function __construct(array $inner)
+    public function __construct(\Traversable $inner)
     {
         $this->inner = $inner;
     }
 
     public function next() : Item
     {
-        $key = key($this->inner);
-        if ($key === null) {
+        if (!$this->inner->valid()) {
             return Item::createEmpty();
         }
-
-        next($this->inner);
-
+        $key = $this->inner->key();
+        $this->inner->next();
         return Item::createFromValue($key);
     }
 }

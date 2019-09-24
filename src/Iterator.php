@@ -3,6 +3,7 @@ namespace Iterator;
 
 interface Iterator extends \IteratorAggregate
 {
+    public static function from(\Traversable $iter) : Iterator;
     public function next() : Item;
     public function map(Callable $mapper) : Map;
     public function filter(Callable $filter) : Filter;

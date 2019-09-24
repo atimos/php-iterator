@@ -11,20 +11,7 @@ function for_each(Iterator $iter, Callable $callback) : void
     }
 }
 
-function to_array(Iterator $iter) : array
-{
-    $item = $iter->next();
-    $values = [];
-
-    while ($item->hasValue()) {
-        $values[] = $item->getValue();
-        $item = $iter->next();
-    }
-
-    return $values;
-}
-
-function fold(Iterator $iter, mixed $init, Callable $callback) : mixed
+function fold(Iterator $iter, $init, Callable $callback)
 {
     $item = $iter->next();
     $result = $init;
