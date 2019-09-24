@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 namespace Iter;
 
-use Iter\IterableKeyValueIter\Item as Value;
-
 class IterableKeyValueIter implements Iter
 {
     use IterImpl;
@@ -25,6 +23,6 @@ class IterableKeyValueIter implements Iter
         $value = $this->inner->current();
         $key = $this->inner->key();
         $this->inner->next();
-        return Item::createFromValue(new Value($key, $value));
+        return Item::createFromValue([$key, $value]);
     }
 }
