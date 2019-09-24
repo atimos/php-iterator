@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
-class Map implements Iterator
+class Map implements Iter
 {
-    use IteratorImpl;
+    use IterImpl;
 
     private $mapper;
     private $inner;
 
-    public function __construct(Iterator $inner, Callable $mapper)
+    public function __construct(Iter $inner, Callable $mapper)
     {
         $this->mapper = $mapper;
         $this->inner = $inner;

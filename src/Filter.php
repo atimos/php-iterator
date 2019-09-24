@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
-class Filter implements Iterator
+class Filter implements Iter
 {
-    use IteratorImpl;
+    use IterImpl;
 
     private $filter;
     private $inner;
 
-    public function __construct(Iterator $inner, Callable $filter)
+    public function __construct(Iter $inner, Callable $filter)
     {
         $this->filter = $filter;
         $this->inner = $inner;

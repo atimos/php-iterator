@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
-interface Iterator extends \IteratorAggregate
+interface Iter extends \IteratorAggregate
 {
     public function next() : Item;
     public function map(Callable $mapper) : Map;
     public function filter(Callable $filter) : Filter;
-    public function zip(Iterator $other) : Zip;
-    public function chain(Iterator $other) : Chain;
+    public function zip(Iter $other) : Zip;
+    public function chain(Iter $other) : Chain;
     public function inspect(Callable $callback) : Inspector;
     public function getIterator() : \Traversable;
     public function forEach(Callable $callback) : void;

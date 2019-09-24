@@ -1,7 +1,7 @@
 <?php
-namespace Iterator;
+namespace Iter\IterableKeyValueIter;
 
-class KeyValue {
+class Item {
     public $key;
     public $value;
 

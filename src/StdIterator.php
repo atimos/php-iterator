@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
 class StdIterator implements \Iterator
 {
@@ -7,7 +7,7 @@ class StdIterator implements \Iterator
     private $item;
     private $idx = 0;
 
-    public function __construct(Iterator $inner)
+    public function __construct(Iter $inner)
     {
         $this->inner = $inner;
         $this->item = $inner->next();

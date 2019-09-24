@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
-class IterableKeyIter implements Iterator
+class IterableKeyIter implements Iter
 {
-    use IteratorImpl;
+    use IterImpl;
 
     private $inner;
 

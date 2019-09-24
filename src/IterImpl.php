@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
-trait IteratorImpl
+trait IterImpl
 {
     public function map(Callable $mapper) : Map
     {
@@ -13,12 +13,12 @@ trait IteratorImpl
         return new Filter($this, $filter);
     }
 
-    public function zip(Iterator $other) : Zip
+    public function zip(Iter $other) : Zip
     {
         return new Zip($this, $other);
     }
 
-    public function chain(Iterator $other) : Chain
+    public function chain(Iter $other) : Chain
     {
         return new Chain($this, $other);
     }
@@ -47,17 +47,6 @@ trait IteratorImpl
     {
         return $this->fold([], function($result, $item) {
             $result[] = $item;
-            return $result;
-        });
-    }
-
-    public function toAssocArray() : array
-    {
-        return $this->fold([], function($result, $item) {
-            if (!$item instanceof KeyValue) {
-                throw new \RuntimeException('item has to be an instance of ' . KeyValue::class);
-            }
-            $result[$item->key] = $item->value;
             return $result;
         });
     }

@@ -1,9 +1,11 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
-class IterableKeyValueIter implements Iterator
+use Iter\IterableKeyValueIter\Item as Value;
+
+class IterableKeyValueIter implements Iter
 {
-    use IteratorImpl;
+    use IterImpl;
 
     private $inner;
 
@@ -23,6 +25,6 @@ class IterableKeyValueIter implements Iterator
         $value = $this->inner->current();
         $key = $this->inner->key();
         $this->inner->next();
-        return Item::createFromValue(new KeyValue($key, $value));
+        return Item::createFromValue(new Value($key, $value));
     }
 }

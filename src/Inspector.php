@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
-class Inspector implements Iterator
+class Inspector implements Iter
 {
-    use IteratorImpl;
+    use IterImpl;
 
     private $callback;
     private $inner;
 
-    public function __construct(Iterator $inner, Callable $callback)
+    public function __construct(Iter $inner, Callable $callback)
     {
         $this->callback = $callback;
         $this->inner = $inner;

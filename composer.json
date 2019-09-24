@@ -9,7 +9,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Iterator\\":"src/"
+            "Iter\\":"src/"
         },
         "files": ["src/functions.php"]
     },

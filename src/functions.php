@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
-function for_each(Iterator $iter, Callable $callback) : void
+function for_each(Iter $iter, Callable $callback) : void
 {
     $item = $iter->next();
 
@@ -11,7 +11,7 @@ function for_each(Iterator $iter, Callable $callback) : void
     }
 }
 
-function fold(Iterator $iter, $init, Callable $callback)
+function fold(Iter $iter, $init, Callable $callback)
 {
     $item = $iter->next();
     $result = $init;

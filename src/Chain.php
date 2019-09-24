@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
-class Chain implements Iterator
+class Chain implements Iter
 {
-    use IteratorImpl;
+    use IterImpl;
 
     private $inner;
     private $other;
 
-    public function __construct(Iterator $inner, Iterator $other)
+    public function __construct(Iter $inner, Iter $other)
     {
         $this->inner = $inner;
         $this->other = $other;

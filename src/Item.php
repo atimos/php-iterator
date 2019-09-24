@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Iterator;
+namespace Iter;
 
 class Item
 {
