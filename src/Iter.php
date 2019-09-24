@@ -12,5 +12,6 @@ interface Iter extends \IteratorAggregate
     public function getIterator() : \Traversable;
     public function forEach(Callable $callback) : void;
     public function fold($init, Callable $callback);
+    public function count() : int;
     public function toArray() : array;
 }

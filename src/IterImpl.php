@@ -43,6 +43,13 @@ trait IterImpl
         return fold($this, $init, $callback);
     }
 
+    public function count() : int
+    {
+        return $this->fold(0, function($result) {
+            return $result + 1;
+        });
+    }
+
     public function toArray() : array
     {
         return $this->fold([], function($result, $item) {
