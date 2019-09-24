@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 namespace Iter;
 
+use PhpOption\Option;
+
 class Chain implements Iter
 {
     use IterImpl;
@@ -14,14 +16,8 @@ class Chain implements Iter
         $this->other = $other;
     }
 
-    public function next() : Item
+    public function next() : Option
     {
-        $innerItem = $this->inner->next();
-
-        if ($innerItem->hasValue()) {
-            return $innerItem;
-        }
-
-        return $this->other->next();
+        $this->inner->next()->orElse($this->other->next());
     }
 }

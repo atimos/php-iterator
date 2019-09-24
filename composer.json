@@ -15,5 +15,8 @@
     },
     "require-dev": {
         "phan/phan": "^2.2"
+    },
+    "require": {
+        "phpoption/phpoption": "^1.5"
     }
 }

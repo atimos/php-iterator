@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 namespace Iter;
 
+use PhpOption\Option;
+
 class Filter implements Iter
 {
     use IterImpl;
@@ -14,12 +16,12 @@ class Filter implements Iter
         $this->inner = $inner;
     }
 
-    public function next() : Item
+    public function next() : Option
     {
         $item = $this->inner->next();
 
-        while($item->hasValue()) {
-            if (($this->filter)($item->getValue())) {
+        while($item->isDefined()) {
+            if (($this->filter)(cloneOption($item)->get())) {
                 break;
             }
             $item = $this->inner->next();

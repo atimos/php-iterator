@@ -1,6 +1,10 @@
 <?php declare(strict_types=1);
 namespace Iter;
 
+use PhpOption\Option;
+use PhpOption\Some;
+use PhpOption\None;
+
 class Zip implements Iter
 {
     use IterImpl;
@@ -14,18 +18,18 @@ class Zip implements Iter
         $this->other = $other;
     }
 
-    public function next() : Item
+    public function next() : Option
     {
-        $innerItem = $this->inner->next();
-        $otherItem = $this->inner->next();
+        $innerOption = $this->inner->next();
+        $otherOption = $this->inner->next();
 
-        if ($innerItem->hasValue() && $otherItem->hasValue()) {
-            return Item::createWithValue([
-                $innerItem->getValue(),
-                $otherItem->getValue(),
+        if ($innerOption->isDefined() && $otherOption->isDefined()) {
+            return Some::create([
+                $innerOption->get(),
+                $otherOption->get(),
             ]);
         }
 
-        return Item::createEmpty();
+        return None::create();
     }
 }

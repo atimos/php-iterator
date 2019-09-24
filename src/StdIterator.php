@@ -25,7 +25,7 @@ class StdIterator implements \Iterator
 
     public function valid() : bool
     {
-        return $this->item->hasValue();
+        return $this->item->isDefined();
     }
 
     public function current()
@@ -34,7 +34,7 @@ class StdIterator implements \Iterator
             throw new RuntimeException('Invalid value');
         }
 
-        return $this->item->getValue();
+        return $this->item->get();
     }
 
     public function key() : int

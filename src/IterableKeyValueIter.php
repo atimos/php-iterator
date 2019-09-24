@@ -1,6 +1,10 @@
 <?php declare(strict_types=1);
 namespace Iter;
 
+use PhpOption\Option;
+use PhpOption\Some;
+use PhpOption\None;
+
 class IterableKeyValueIter implements Iter
 {
     use IterImpl;
@@ -15,14 +19,14 @@ class IterableKeyValueIter implements Iter
         $this->inner = $inner;
     }
 
-    public function next() : Item
+    public function next() : Option
     {
         if (!$this->inner->valid()) {
-            return Item::createEmpty();
+            return None::create();
         }
         $value = $this->inner->current();
         $key = $this->inner->key();
         $this->inner->next();
-        return Item::createFromValue([$key, $value]);
+        return Some::create([$key, $value]);
     }
 }
