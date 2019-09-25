@@ -1,11 +1,14 @@
 <?php declare(strict_types=1);
 namespace Iter;
 
+use PhpOption\Option;
+
 trait IterImpl
 {
     public function last() : Option { return last($this); }
-    public function nth() : Option { return nth($this); }
-    public function position(Callable $find) : Option { return find($this, $find); }
+    public function nth(int $nth) : Option { return nth($this, $nth); }
+    public function find(Callable $find) : Option { return find($this, $find); }
+    public function position(Callable $position) : Option { return position($this, $position); }
 
     public function peekable() : Peekable { return new Peekable($this); }
     public function enumerate() : Enumerate { return new Enumerate($this); }
@@ -13,7 +16,7 @@ trait IterImpl
 
     public function filter(Callable $filter) : Filter { return new Filter($this, $filter); }
     public function stepBy(int $step) : StepBy { return new StepBy($this, $step); }
-    public function skip(int $skip) : Skip { return new Skip($this); }
+    public function skip(int $skip) : Skip { return new Skip($this, $skip); }
     public function skipWhile(Callable $skipWhile) : SkipWhile { return new SkipWhile($this, $skipWhile); }
     public function take(int $take) : Take { return new Take($this, $take); }
     public function takeWhile(Callable $takeWhile) : TakeWhile { return new TakeWhile($this, $takeWhile); }
