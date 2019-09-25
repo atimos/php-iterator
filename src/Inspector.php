@@ -10,7 +10,7 @@ class Inspector implements Iter
     private $inspect;
     private $inner;
 
-    public function __construct(Iter $inner, Callable $inspect)
+    public function __construct(Iter $inner, callable $inspect)
     {
         $this->inspect = $inspect;
         $this->inner = $inner;

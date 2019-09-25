@@ -3,25 +3,31 @@ namespace Iter;
 
 use PhpOption\Option;
 
-class Filter implements Iter
+class SkipWhile implements Iter
 {
     use IterImpl;
 
-    private $filter;
+    private $skipWhile;
     private $inner;
+    private $found;
 
-    public function __construct(Iter $inner, callable $filter)
+    public function __construct(Iter $inner, callable $skipWhile)
     {
-        $this->filter = $filter;
+        $this->skipWhile = $skipWhile;
         $this->inner = $inner;
+        $this->found = false;
     }
 
     public function next() : Option
     {
+        if ($this->found) {
+            return $this->inner->next();
+        }
         $item = $this->inner->next();
 
         while($item->isDefined()) {
-            if (($this->filter)(cloneOption($item)->get())) {
+            if (!($this->skipWhile)(cloneOption($item)->get())) {
+                $this->found = true;
                 break;
             }
             $item = $this->inner->next();

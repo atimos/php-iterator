@@ -5,7 +5,7 @@ use PhpOption\Option;
 use PhpOption\Some;
 use PhpOption\None;
 
-function forEachItem(Iter $iter, Callable $forEach) : void
+function forEachItem(Iter $iter, callable $forEach) : void
 {
     $item = $iter->next();
 
@@ -15,7 +15,7 @@ function forEachItem(Iter $iter, Callable $forEach) : void
     }
 }
 
-function fold(Iter $iter, $init, Callable $fold)
+function fold(Iter $iter, $init, callable $fold)
 {
     $item = $iter->next();
     $result = $init;
@@ -41,9 +41,23 @@ function last(Iter $iter) : Option
     return _nonCloneFold($iter, None::create(), function($_result, $item) { return Some::create($item); });
 }
 
-function nth(Iter $iter, $nth) : Option
+function nth(Iter $iter, int $nth) : Option
 {
     return $iter->skip($nth)->next();
+}
+
+function find(Iter $iter, callable $find) : Option
+{
+    $item = $iter->next();
+
+    while($item->isDefined()) {
+        if (($find)(cloneOption($item)->get())) {
+            break;
+        }
+        $item = $iter->next();
+    }
+
+    return $item;
 }
 
 function cloneOption(Option $option) : Option
@@ -58,7 +72,7 @@ function cloneOption(Option $option) : Option
     return $option;
 }
 
-function _nonCloneFold(Iter $iter, $init, Callable $fold)
+function _nonCloneFold(Iter $iter, $init, callable $fold)
 {
     $item = $iter->next();
     $result = $init;

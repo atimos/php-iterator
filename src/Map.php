@@ -11,7 +11,7 @@ class Map implements Iter
     private $mapper;
     private $inner;
 
-    public function __construct(Iter $inner, Callable $mapper)
+    public function __construct(Iter $inner, callable $mapper)
     {
         $this->mapper = $mapper;
         $this->inner = $inner;
