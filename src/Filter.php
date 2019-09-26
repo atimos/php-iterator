@@ -22,7 +22,7 @@ class Filter implements Iter
 
         while($item->isDefined()) {
             if (($this->filter)(cloneOption($item)->get())) {
-                break;
+                return $item;
             }
             $item = $this->inner->next();
         }

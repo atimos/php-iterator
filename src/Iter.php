@@ -9,7 +9,7 @@ interface Iter extends \IteratorAggregate
     public function last() : Option;
     public function nth(int $nth) : Option;
     public function find(callable $find) : Option;
-    public function position(callable $position) : Option;
+    public function position(callable $find) : Option;
 
     public function peekable() : Peekable;
     public function enumerate() : Enumerate;
@@ -32,9 +32,7 @@ interface Iter extends \IteratorAggregate
     public function all(callable $all) : bool;
     public function any(callable $any) : bool;
     public function max() : Option;
-    public function maxBy(callable $maxBy) : Option;
     public function min() : Option;
-    public function minBy(callable $minBy) : Option;
 
     public function inspect(callable $inspect) : Inspector;
     public function forEach(callable $forEach) : void;

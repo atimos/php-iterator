@@ -33,12 +33,12 @@ function fold(Iter $iter, $init, callable $fold)
 
 function count(Iter $iter) : int
 {
-    return _nonCloneFold($iter, 0, function($count) { return $count + 1; });
+    return nonCloneFold($iter, 0, function($count) { return $count + 1; });
 }
 
 function last(Iter $iter) : Option
 {
-    return _nonCloneFold($iter, None::create(), function($_result, $item) { return Some::create($item); });
+    return nonCloneFold($iter, None::create(), function($_result, $item) { return Some::create($item); });
 }
 
 function nth(Iter $iter, int $nth) : Option
@@ -52,12 +52,78 @@ function find(Iter $iter, callable $find) : Option
 
     while($item->isDefined()) {
         if (($find)(cloneOption($item)->get())) {
-            break;
+            return $item;
         }
         $item = $iter->next();
     }
 
     return $item;
+}
+
+function position(Iter $iter, callable $find) : Option
+{
+    $count = 0;
+    $item = $iter->next();
+
+    while($item->isDefined()) {
+        if (($find)(cloneOption($item)->get())) {
+            return Some::create($count);
+        }
+        $count += 1;
+        $item = $iter->next();
+    }
+
+    return $item;
+}
+
+function all(Iter $iter, callable $all) : bool
+{
+    $result = false;
+    $item = $iter->next();
+
+    while($item->isDefined()) {
+        if (!($all)(cloneOption($item)->get())) {
+            return false;
+        }
+        $result = true;
+        $item = $iter->next();
+    }
+
+    return $result;
+}
+
+function any(Iter $iter, callable $any) : bool
+{
+    $item = $iter->next();
+
+    while($item->isDefined()) {
+        if (($any)(cloneOption($item)->get())) {
+            return true;
+        }
+        $item = $iter->next();
+    }
+
+    return false;
+}
+
+function max(Iter $iter) : Option
+{
+    return nonCloneFold($iter, None::create(), function($result, $item) {
+        if ($result->isEmpty() || $result->get() < $item) {
+            return Some::create($item);
+        }
+        return $result;
+    });
+}
+
+function min(Iter $iter) : Option
+{
+    return nonCloneFold($iter, None::create(), function($result, $item) {
+        if ($result->isEmpty() || $result->get() > $item) {
+            return Some::create($item);
+        }
+        return $result;
+    });
 }
 
 function cloneOption(Option $option) : Option
@@ -72,15 +138,12 @@ function cloneOption(Option $option) : Option
     return $option;
 }
 
-function _nonCloneFold(Iter $iter, $init, callable $fold)
+function nonCloneFold(Iter $iter, $init, callable $fold)
 {
     $item = $iter->next();
     $result = $init;
 
     while ($item->isDefined()) {
-        if (is_object($result)) {
-            $result = clone $result;
-        }
         $result = $fold($result, $item->get());
         $item = $iter->next();
     }

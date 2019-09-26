@@ -28,7 +28,7 @@ class SkipWhile implements Iter
         while($item->isDefined()) {
             if (!($this->skipWhile)(cloneOption($item)->get())) {
                 $this->found = true;
-                break;
+                return $item;
             }
             $item = $this->inner->next();
         }

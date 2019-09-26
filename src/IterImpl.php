@@ -8,7 +8,7 @@ trait IterImpl
     public function last() : Option { return last($this); }
     public function nth(int $nth) : Option { return nth($this, $nth); }
     public function find(callable $find) : Option { return find($this, $find); }
-    public function position(callable $position) : Option { return position($this, $position); }
+    public function position(callable $find) : Option { return position($this, $find); }
 
     public function peekable() : Peekable { return new Peekable($this); }
     public function enumerate() : Enumerate { return new Enumerate($this); }
@@ -29,11 +29,9 @@ trait IterImpl
     public function fold($init, callable $fold) : Fold { return fold($this, $init, $fold); }
     public function count() : int { return count($this); }
     public function all(callable $all) : bool { return all($this, $all); }
-    public function any(callable $any) : bool { return any($this, $all); }
+    public function any(callable $any) : bool { return any($this, $any); }
     public function max() : Option { return max($this); }
-    public function maxBy(callable $maxBy) : Option { return maxBy($this, $maxBy); }
     public function min() : Option { return min($this); }
-    public function minBy(callable $minBy) : Option { return minBy($this, $minBy); }
 
     public function inspect(callable $inspect) : Inspector { return new Inspector($this, $inspect); }
     public function forEach(callable $forEach) : void { forEachItem($this, $forEach); }
