@@ -39,4 +39,5 @@ interface Iter extends \IteratorAggregate
 
     public function getIterator() : \Traversable;
     public function toArray() : array;
+    public function toAssocArray() : array;
 }

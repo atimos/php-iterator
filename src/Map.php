@@ -8,12 +8,12 @@ class Map implements Iter
 {
     use IterImpl;
 
-    private $mapper;
+    private $map;
     private $inner;
 
-    public function __construct(Iter $inner, callable $mapper)
+    public function __construct(Iter $inner, callable $map)
     {
-        $this->mapper = $mapper;
+        $this->map = $map;
         $this->inner = $inner;
     }
 
@@ -22,7 +22,7 @@ class Map implements Iter
         $item = $this->inner->next();
 
         if ($item->isDefined()) {
-            $item = Some::create(cloneOption($item)->get());
+            $item = Some::create(($this->map)(cloneOption($item)->get()));
         }
 
         return $item;

@@ -126,6 +126,25 @@ function min(Iter $iter) : Option
     });
 }
 
+function toArray(Iter $iter) : array
+{
+    return nonCloneFold($iter, [], function($result, $item) {
+        $result[] = $item;
+        return $result;
+    });
+}
+
+function toAssocArray(Iter $iter) : array
+{
+    return nonCloneFold($iter, [], function($result, $item) {
+        if (!is_array($item) || \count($item) !== 2) {
+            throw new RuntimeException('item has to be an array with two items');
+        }
+        $result[$item[0]] = $item[1];
+        return $result;
+    });
+}
+
 function cloneOption(Option $option) : Option
 {
     if ($option->isDefined()) {

@@ -38,4 +38,5 @@ trait IterImpl
 
     public function getIterator() : \Traversable { return new StdIterator($this); }
     public function toArray() : array { return toArray($this); }
+    public function toAssocArray() : array { return toAssocArray($this); }
 }
