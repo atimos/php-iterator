@@ -21,7 +21,6 @@ class FizzBuzzTest extends TestCase
                 $expectedValue = Some::create($this->rosettaImplementation($number));
                 $actualValue = $this->iterImplementation($number);
 
-                $this->assertTrue($actualValue->isDefined(), "item should have a value");
                 $this->assertEquals($expectedValue, $actualValue, "number $number should be {$expectedValue->get()}");
             });
     }
