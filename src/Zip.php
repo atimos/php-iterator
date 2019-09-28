@@ -9,24 +9,24 @@ class Zip implements Iter
 {
     use IterImpl;
 
-    private $inner;
-    private $other;
+    private $firstIter;
+    private $secondIter;
 
-    public function __construct(Iter $inner, Iter $other)
+    public function __construct(Iter $first, Iter $second)
     {
-        $this->inner = $inner;
-        $this->other = $other;
+        $this->first = $first;
+        $this->second = $second;
     }
 
     public function next() : Option
     {
-        $innerOption = $this->inner->next();
-        $otherOption = $this->inner->next();
+        $firstItem = $this->first->next();
+        $secondItem = $this->second->next();
 
-        if ($innerOption->isDefined() && $otherOption->isDefined()) {
+        if ($firstItem->isDefined() && $secondItem->isDefined()) {
             return Some::create([
-                $innerOption->get(),
-                $otherOption->get(),
+                $firstItem->get(),
+                $secondItem->get(),
             ]);
         }
 
