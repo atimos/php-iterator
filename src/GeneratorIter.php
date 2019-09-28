@@ -5,18 +5,15 @@ use PhpOption\Option;
 use PhpOption\Some;
 use PhpOption\None;
 
-class IterableValueIter implements Iter
+class GeneratorIter implements Iter
 {
     use IterImpl;
 
     private $inner;
 
-    public function __construct(Iterable $inner)
+    public function __construct(Callable $inner)
     {
-        if (is_array($inner)) {
-            $inner = new \ArrayIterator($inner);
-        }
-        $this->inner = $inner;
+        $this->inner = $inner();
     }
 
     public function next() : Option
