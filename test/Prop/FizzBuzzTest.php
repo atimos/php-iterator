@@ -5,6 +5,7 @@ use PHPUnit\Framework\TestCase;
 use Eris\Generator;
 use Eris\TestTrait as PropTestTrait;
 use Iter;
+use PhpOption\Some;
 
 class FizzBuzzTest extends TestCase
 {
@@ -17,14 +18,11 @@ class FizzBuzzTest extends TestCase
     {
         $this->forAll(Generator\pos())
             ->then(function($number) {
-                $expectedValue = $this->rosettaImplementation($number);
+                $expectedValue = Some::create($this->rosettaImplementation($number));
                 $actualValue = $this->iterImplementation($number);
-                $this->assertTrue($actualValue->isDefined());
-                $this->assertEquals(
-                    $expectedValue,
-                    $actualValue->get(),
-                    "number $number should be $expectedValue"
-                );
+
+                $this->assertTrue($actualValue->isDefined(), "item should have a value");
+                $this->assertEquals($expectedValue, $actualValue, "number $number should be {$expectedValue->get()}");
             });
     }
 
