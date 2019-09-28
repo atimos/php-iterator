@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Test\Prop;
+namespace Test\PropTest;
 
 use PHPUnit\Framework\TestCase;
 use Eris\Generator;
