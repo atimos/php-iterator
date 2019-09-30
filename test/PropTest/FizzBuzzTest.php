@@ -21,7 +21,7 @@ class FizzBuzzTest extends TestCase
 
             $actual = (new Iter\IterableIter(['', '', 'Fizz']))->cycle()
                 ->zip((new Iter\IterableIter(['', '', '', '', 'Buzz']))->cycle())
-                ->map(function($item) { return trim(implode(' ', $item)); })
+                ->map(function($item) { return trim(implode('', $item)); })
                 ->zip(new Iter\GeneratorIter(function() {
                     $number = 0;
                     while (true) {
