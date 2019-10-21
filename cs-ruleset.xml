@@ -1,6 +1,71 @@
 <?xml version="1.0"?>
 <ruleset name="lazy-iter">
-	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml"><!-- relative path to your ruleset.xml -->
-		<!-- sniffs to exclude -->
-	</rule>
+    <rule ref="vendor/squizlabs/php_codesniffer/src/Standards/PSR12/ruleset.xml" /><!-- relative path to your ruleset.xml -->
+    <config name="installed_paths" value="../../slevomat/coding-standard"/><!-- relative path from PHPCS source location -->
+    <rule ref="SlevomatCodingStandard.Exceptions"/>
+    <rule ref="SlevomatCodingStandard.Arrays"/>
+    <rule ref="SlevomatCodingStandard.PHP"/>
+    <rule ref="SlevomatCodingStandard.Operators"/>
+
+    <rule ref="SlevomatCodingStandard.TypeHints">
+        <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessDocComment"/>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property name="newlinesCountBetweenOpenTagAndDeclare" type="int" value="2" />
+            <property name="spacesCountAroundEqualsSign" type="int" value="0" />
+        </properties>
+    </rule>
+    <!-- waiting for next version, remove exclude from typehint
+    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessDocComment">
+        <properties>
+            <property name="usefulAnnotations" type="array">
+                <element>test</element>
+            </property>
+        </properties>
+    </rule>
+    -->
+
+    <rule ref="SlevomatCodingStandard.ControlStructures">
+        <exclude name="SlevomatCodingStandard.ControlStructures.ControlStructureSpacing"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison"/>
+    </rule>
+    <!-- dont know why this fails
+    <rule ref="SlevomatCodingStandard.Namespaces">
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
+    </rule>
+    -->
+
+    <rule ref="SlevomatCodingStandard.Classes">
+        <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces"/>
+        <exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing"/>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Commenting">
+        <exclude name="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment"/>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Functions">
+        <exclude name="SlevomatCodingStandard.Functions.UnusedParameter"/>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Variables">
+        <exclude name="SlevomatCodingStandard.Variables.UnusedVariable"/>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Files"/>
+    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+        <properties>
+            <property name="rootNamespaces" type="array">
+                <element key="src" value="Iter"/>
+                <element key="test" value="Test"/>
+            </property>
+        </properties>
+    </rule>
 </ruleset>
