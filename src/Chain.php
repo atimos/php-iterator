@@ -10,7 +10,9 @@ class Chain implements Iter
 {
     use IterImpl;
 
+    /** @var Iter */
     private $inner;
+    /** @var Iter */
     private $other;
 
     public function __construct(Iter $inner, Iter $other)

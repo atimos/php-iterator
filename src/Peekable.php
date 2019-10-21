@@ -12,7 +12,9 @@ class Peekable implements Iter
 {
     use IterImpl;
 
+    /** @var Iter */
     private $inner;
+    /** @var Option */
     private $peeked;
 
     public function __construct(Iter $inner)

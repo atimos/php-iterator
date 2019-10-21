@@ -11,7 +11,9 @@ class Map implements Iter
 {
     use IterImpl;
 
+    /** @var callable */
     private $map;
+    /** @var Iter */
     private $inner;
 
     public function __construct(Iter $inner, callable $map)

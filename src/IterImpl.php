@@ -12,14 +12,17 @@ trait IterImpl
     {
         return last($this);
     }
+
     public function nth(int $nth): Option
     {
         return nth($this, $nth);
     }
+
     public function find(callable $find): Option
     {
         return find($this, $find);
     }
+
     public function position(callable $find): Option
     {
         return position($this, $find);
@@ -29,10 +32,12 @@ trait IterImpl
     {
         return new Peekable($this);
     }
+
     public function enumerate(): Enumerate
     {
         return new Enumerate($this);
     }
+
     public function map(callable $mapper): Map
     {
         return new Map($this, $mapper);
@@ -42,22 +47,27 @@ trait IterImpl
     {
         return new Filter($this, $filter);
     }
+
     public function stepBy(int $step): StepBy
     {
         return new StepBy($this, $step);
     }
+
     public function skip(int $skip): Skip
     {
         return new Skip($this, $skip);
     }
+
     public function skipWhile(callable $skipWhile): SkipWhile
     {
         return new SkipWhile($this, $skipWhile);
     }
+
     public function take(int $take): Take
     {
         return new Take($this, $take);
     }
+
     public function takeWhile(callable $takeWhile): TakeWhile
     {
         return new TakeWhile($this, $takeWhile);
@@ -67,39 +77,51 @@ trait IterImpl
     {
         return new Zip($this, $other);
     }
+
     public function chain(Iter $other): Chain
     {
         return new Chain($this, $other);
     }
+
     public function cycle(): Cycle
     {
         return new Cycle($this);
     }
+
     public function fuse(): Fuse
     {
         return new Fuse($this);
     }
 
-    public function fold($init, callable $fold): Fold
+    /**
+     * @param mixed $init
+     * @return mixed
+     */
+    public function fold($init, callable $fold)
     {
         return fold($this, $init, $fold);
     }
+
     public function count(): int
     {
         return count($this);
     }
+
     public function all(callable $all): bool
     {
         return all($this, $all);
     }
+
     public function any(callable $any): bool
     {
         return any($this, $any);
     }
+
     public function max(): Option
     {
         return max($this);
     }
+
     public function min(): Option
     {
         return min($this);
@@ -109,6 +131,7 @@ trait IterImpl
     {
         return new Inspector($this, $inspect);
     }
+
     public function forEach(callable $forEach): void
     {
         forEachItem($this, $forEach);
@@ -118,10 +141,14 @@ trait IterImpl
     {
         return new StdIterator($this);
     }
+
+    /** @return array<mixed> */
     public function toArray(): array
     {
         return toArray($this);
     }
+
+    /** @return array<mixed> */
     public function toAssocArray(): array
     {
         return toAssocArray($this);

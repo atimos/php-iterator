@@ -11,8 +11,11 @@ class TakeWhile implements Iter
 {
     use IterImpl;
 
+    /** @var callable */
     private $takeWhile;
+    /** @var Iter */
     private $inner;
+    /** @var bool */
     private $done;
 
     public function __construct(Iter $inner, callable $takeWhile)

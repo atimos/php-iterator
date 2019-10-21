@@ -11,7 +11,9 @@ class Enumerate implements Iter
 {
     use IterImpl;
 
+    /** @var Iter */
     private $inner;
+    /** @var int */
     private $idx;
 
     public function __construct(Iter $inner)

@@ -12,6 +12,7 @@ class GeneratorIter implements Iter
 {
     use IterImpl;
 
+    /** @var Generator */
     private $inner;
 
     public function __construct(callable $inner)

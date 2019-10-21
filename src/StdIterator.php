@@ -6,8 +6,11 @@ namespace Iter;
 
 class StdIterator implements \Iterator
 {
+    /** @var Iter */
     private $inner;
+    /** @var mixed */
     private $item;
+    /** @var int */
     private $idx = 0;
 
     public function __construct(Iter $inner)
@@ -31,6 +34,7 @@ class StdIterator implements \Iterator
         return $this->item->isDefined();
     }
 
+    /** @return mixed */
     public function current()
     {
         if (!$this->valid()) {

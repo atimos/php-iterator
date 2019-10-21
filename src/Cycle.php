@@ -7,13 +7,17 @@ namespace Iter;
 use PhpOption\Option;
 use PhpOption\None;
 
+use function count;
+
 class Cycle implements Iter
 {
     use IterImpl;
 
+    /** @var array<mixed> */
     private $sourceCycle;
+    /** @var array<mixed> */
     private $cycle;
-    private $idx;
+    /** @var Iter */
     private $inner;
 
     public function __construct(Iter $inner)
@@ -21,7 +25,6 @@ class Cycle implements Iter
         $this->inner = $inner;
         $this->sourceCycle = [];
         $this->cycle = [];
-        $this->idx = 0;
     }
 
     public function next(): Option
@@ -33,11 +36,11 @@ class Cycle implements Iter
             return $item;
         }
 
-        if (\count($this->sourceCycle) === 0) {
+        if (count($this->sourceCycle) === 0) {
             return None::create();
         }
 
-        if (\count($this->cycle) === 0) {
+        if (count($this->cycle) === 0) {
             $this->cycle = $this->sourceCycle;
         }
 

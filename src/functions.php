@@ -18,6 +18,10 @@ function forEachItem(Iter $iter, callable $forEach): void
     }
 }
 
+/**
+ * @return mixed
+ * @param mixed $init
+ */
 function fold(Iter $iter, $init, callable $fold)
 {
     $item = $iter->next();
@@ -36,14 +40,14 @@ function fold(Iter $iter, $init, callable $fold)
 
 function count(Iter $iter): int
 {
-    return nonCloneFold($iter, 0, function ($count) {
+    return nonCloneFold($iter, 0, static function ($count) {
         return $count + 1;
     });
 }
 
 function last(Iter $iter): Option
 {
-    return nonCloneFold($iter, None::create(), function ($_, $item) {
+    return nonCloneFold($iter, None::create(), static function ($_, $item) {
         return Some::create($item);
     });
 }
@@ -115,7 +119,7 @@ function any(Iter $iter, callable $any): bool
 
 function max(Iter $iter): Option
 {
-    return nonCloneFold($iter, None::create(), function ($result, $item) {
+    return nonCloneFold($iter, None::create(), static function ($result, $item) {
         if ($result->isEmpty() || $result->get() < $item) {
             return Some::create($item);
         }
@@ -125,7 +129,7 @@ function max(Iter $iter): Option
 
 function min(Iter $iter): Option
 {
-    return nonCloneFold($iter, None::create(), function ($result, $item) {
+    return nonCloneFold($iter, None::create(), static function ($result, $item) {
         if ($result->isEmpty() || $result->get() > $item) {
             return Some::create($item);
         }
@@ -133,17 +137,23 @@ function min(Iter $iter): Option
     });
 }
 
+/**
+ * @return array<mixed>
+ */
 function toArray(Iter $iter): array
 {
-    return nonCloneFold($iter, [], function ($result, $item) {
+    return nonCloneFold($iter, [], static function ($result, $item) {
         $result[] = $item;
         return $result;
     });
 }
 
+/**
+ * @return array<mixed>
+ */
 function toAssocArray(Iter $iter): array
 {
-    return nonCloneFold($iter, [], function ($result, $item) {
+    return nonCloneFold($iter, [], static function ($result, $item) {
         if (!is_array($item) || \count($item) !== 2) {
             throw new RuntimeException('item has to be an array with two items');
         }
@@ -164,6 +174,10 @@ function cloneOption(Option $option): Option
     return $option;
 }
 
+/**
+ * @return mixed
+ * @param mixed $init
+ */
 function nonCloneFold(Iter $iter, $init, callable $fold)
 {
     $item = $iter->next();

@@ -4,36 +4,36 @@ declare(strict_types=1);
 
 namespace Test\PropTest;
 
-use PHPUnit\Framework\TestCase;
 use Eris\Generator;
-use Eris\TestTrait as PropTestTrait;
+use Eris\TestTrait;
+use Iter\{IterableIter, GeneratorIter};
 use PhpOption\Some;
-use Iter;
+use PHPUnit\Framework\TestCase;
 
 class FizzBuzzTest extends TestCase
 {
-    use PropTestTrait;
+    use TestTrait;
 
     /**
      * @test
      */
-    public function fizzBuzzPattern()
+    public function testFizzBuzzPattern(): void
     {
-        $this->forAll(Generator\pos())->then(function ($n) {
+        $this->forAll(Generator\pos())->then(function ($n): void {
             $expected = Some::create($this->rosettaImplementation($n));
 
-            $actual = (new Iter\IterableIter(['', '', 'Fizz']))->cycle()
-                ->zip((new Iter\IterableIter(['', '', '', '', 'Buzz']))->cycle())
-                ->map(function ($item) {
+            $actual = (new IterableIter(['', '', 'Fizz']))->cycle()
+                ->zip((new IterableIter(['', '', '', '', 'Buzz']))->cycle())
+                ->map(static function ($item) {
                     return trim(implode('', $item));
                 })
-                ->zip(new Iter\GeneratorIter(function () {
+                ->zip(new GeneratorIter(static function () {
                     $number = 0;
                     while (true) {
                         yield (string) $number += 1;
                     }
                 }))
-                ->map(function ($data) {
+                ->map(static function ($data) {
                     return max($data);
                 })
                 ->nth($n - 1);
@@ -42,7 +42,7 @@ class FizzBuzzTest extends TestCase
         });
     }
 
-    private function rosettaImplementation($number)
+    private function rosettaImplementation(int $number): string
     {
         $str = "";
         if (!($number % 3)) {
@@ -53,7 +53,7 @@ class FizzBuzzTest extends TestCase
             $str .= "Buzz";
         }
 
-        if (empty($str)) {
+        if (strlen($str) === 0) {
             $str = (string) $number;
         }
 

@@ -12,7 +12,9 @@ class Zip implements Iter
 {
     use IterImpl;
 
+    /** @var Iter */
     private $first;
+    /** @var Iter */
     private $second;
 
     public function __construct(Iter $first, Iter $second)

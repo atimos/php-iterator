@@ -10,8 +10,11 @@ class Skip implements Iter
 {
     use IterImpl;
 
+    /** @var int */
     private $skip;
+    /** @var Iter */
     private $inner;
+    /** @var int */
     private $current;
 
     public function __construct(Iter $inner, int $skip)

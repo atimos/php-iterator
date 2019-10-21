@@ -10,7 +10,9 @@ class Inspector implements Iter
 {
     use IterImpl;
 
+    /** @var callable */
     private $inspect;
+    /** @var Iter */
     private $inner;
 
     public function __construct(Iter $inner, callable $inspect)

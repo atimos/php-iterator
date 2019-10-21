@@ -10,8 +10,11 @@ class SkipWhile implements Iter
 {
     use IterImpl;
 
+    /** @var callable */
     private $skipWhile;
+    /** @var Iter */
     private $inner;
+    /** @var bool */
     private $found;
 
     public function __construct(Iter $inner, callable $skipWhile)

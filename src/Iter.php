@@ -30,6 +30,10 @@ interface Iter extends \IteratorAggregate
     public function cycle(): Cycle;
     public function fuse(): Fuse;
 
+    /**
+     * @param mixed $init
+     * @return mixed
+     */
     public function fold($init, callable $fold);
     public function count(): int;
     public function all(callable $all): bool;
@@ -41,6 +45,8 @@ interface Iter extends \IteratorAggregate
     public function forEach(callable $forEach): void;
 
     public function getIterator(): \Traversable;
+    /** @return array<mixed> */
     public function toArray(): array;
+    /** @return array<mixed> */
     public function toAssocArray(): array;
 }

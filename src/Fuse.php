@@ -11,7 +11,9 @@ class Fuse implements Iter
 {
     use IterImpl;
 
+    /** @var Iter */
     private $inner;
+    /** @var bool */
     private $done;
 
     public function __construct(Iter $inner)

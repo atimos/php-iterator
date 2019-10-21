@@ -10,7 +10,9 @@ class Filter implements Iter
 {
     use IterImpl;
 
+    /** @var callable */
     private $filter;
+    /** @var Iter */
     private $inner;
 
     public function __construct(Iter $inner, callable $filter)

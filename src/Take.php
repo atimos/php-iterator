@@ -11,7 +11,9 @@ class Take implements Iter
 {
     use IterImpl;
 
+    /** @var int */
     private $take;
+    /** @var Iter */
     private $inner;
 
     public function __construct(Iter $inner, int $take)

@@ -13,8 +13,10 @@ class IterableKeyIter implements Iter
 {
     use IterImpl;
 
+    /** @var iterable<mixed> */
     private $inner;
 
+    /** @param iterable<mixed> $inner */
     public function __construct(iterable $inner)
     {
         if (is_array($inner)) {

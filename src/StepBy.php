@@ -11,8 +11,11 @@ class StepBy implements Iter
 {
     use IterImpl;
 
+    /** @var int */
     private $step;
+    /** @var Iter */
     private $inner;
+    /** @var bool */
     private $firstReturned;
 
     public function __construct(Iter $inner, int $step)
