@@ -494,16 +494,16 @@
         },
         {
             "name": "phan/phan",
-            "version": "2.2.12",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phan/phan.git",
-                "reference": "2a92f878ba768a59d0137b9c1f8e58d798c24792"
+                "reference": "96a7b3c055653f6e4e7b9702148cc95688dc4245"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/2a92f878ba768a59d0137b9c1f8e58d798c24792",
-                "reference": "2a92f878ba768a59d0137b9c1f8e58d798c24792",
+                "url": "https://api.github.com/repos/phan/phan/zipball/96a7b3c055653f6e4e7b9702148cc95688dc4245",
+                "reference": "96a7b3c055653f6e4e7b9702148cc95688dc4245",
                 "shasum": ""
             },
             "require": {
@@ -511,7 +511,8 @@
                 "composer/xdebug-handler": "^1.3.2",
                 "ext-filter": "*",
                 "ext-json": "*",
-                "felixfbecker/advanced-json-rpc": "^3.0.3",
+                "ext-tokenizer": "*",
+                "felixfbecker/advanced-json-rpc": "^3.0.4",
                 "microsoft/tolerant-php-parser": "0.0.18",
                 "php": "^7.1.0",
                 "sabre/event": "^5.0",
@@ -524,7 +525,9 @@
             },
             "suggest": {
                 "ext-ast": "Needed for parsing ASTs (unless --use-fallback-parser is used). 1.0.1+ is needed.",
+                "ext-iconv": "Either iconv or mbstring is needed to ensure issue messages are valid utf-8",
                 "ext-igbinary": "Improves performance of polyfill when ext-ast is unavailable",
+                "ext-mbstring": "Either iconv or mbstring is needed to ensure issue messages are valid utf-8",
                 "ext-tokenizer": "Needed for non-AST support and file/line-based suppressions."
             },
             "bin": [
@@ -559,7 +562,7 @@
                 "php",
                 "static"
             ],
-            "time": "2019-09-08T14:42:03+00:00"
+            "time": "2019-10-20T14:39:49+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -883,22 +886,22 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.8.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76"
+                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
-                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/f6811d96d97bdf400077a0cc100ae56aa32b9203",
+                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
-                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
+                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0|^5.0",
                 "sebastian/comparator": "^1.1|^2.0|^3.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
@@ -942,7 +945,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2019-06-13T12:50:23+00:00"
+            "time": "2019-10-03T11:07:50+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
@@ -1245,16 +1248,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.3.5",
+            "version": "8.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "302faed7059fde575cf3403a78c730c5e3a62750"
+                "reference": "366a4a0f2b971fd43b7c351d621e8dd7d7131869"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/302faed7059fde575cf3403a78c730c5e3a62750",
-                "reference": "302faed7059fde575cf3403a78c730c5e3a62750",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/366a4a0f2b971fd43b7c351d621e8dd7d7131869",
+                "reference": "366a4a0f2b971fd43b7c351d621e8dd7d7131869",
                 "shasum": ""
             },
             "require": {
@@ -1298,7 +1301,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "8.3-dev"
+                    "dev-master": "8.4-dev"
                 }
             },
             "autoload": {
@@ -1324,7 +1327,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-09-14T09:12:03+00:00"
+            "time": "2019-10-07T12:57:41+00:00"
         },
         {
             "name": "psr/container",
@@ -2254,16 +2257,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.3.4",
+            "version": "v4.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "de63799239b3881b8a08f8481b22348f77ed7b36"
+                "reference": "929ddf360d401b958f611d44e726094ab46a7369"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/de63799239b3881b8a08f8481b22348f77ed7b36",
-                "reference": "de63799239b3881b8a08f8481b22348f77ed7b36",
+                "url": "https://api.github.com/repos/symfony/console/zipball/929ddf360d401b958f611d44e726094ab46a7369",
+                "reference": "929ddf360d401b958f611d44e726094ab46a7369",
                 "shasum": ""
             },
             "require": {
@@ -2325,7 +2328,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-26T08:26:39+00:00"
+            "time": "2019-10-07T12:36:49+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -2627,16 +2630,16 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v1.1.6",
+            "version": "v1.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "ea7263d6b6d5f798b56a45a5b8d686725f2719a3"
+                "reference": "ffcde9615dc5bb4825b9f6aed07716f1f57faae0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/ea7263d6b6d5f798b56a45a5b8d686725f2719a3",
-                "reference": "ea7263d6b6d5f798b56a45a5b8d686725f2719a3",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/ffcde9615dc5bb4825b9f6aed07716f1f57faae0",
+                "reference": "ffcde9615dc5bb4825b9f6aed07716f1f57faae0",
                 "shasum": ""
             },
             "require": {
@@ -2681,7 +2684,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-08-20T14:44:19+00:00"
+            "time": "2019-09-17T11:12:18+00:00"
         },
         {
             "name": "theseer/tokenizer",
