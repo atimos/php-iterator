@@ -1,5 +1,5 @@
 {
-    "name": "atimos/php_iterator",
+    "name": "atimos/lazy_iter",
     "type": "library",
     "authors": [
         {
