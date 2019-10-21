@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
@@ -19,7 +22,7 @@ class TakeWhile implements Iter
         $this->done = false;
     }
 
-    public function next() : Option
+    public function next(): Option
     {
         if ($this->done === true) {
             return None::create();

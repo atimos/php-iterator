@@ -1,9 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
 use PhpOption\Some;
 use PhpOption\None;
+use ArrayIterator;
 
 class IterableKeyIter implements Iter
 {
@@ -11,15 +15,15 @@ class IterableKeyIter implements Iter
 
     private $inner;
 
-    public function __construct(Iterable $inner)
+    public function __construct(iterable $inner)
     {
         if (is_array($inner)) {
-            $inner = new \ArrayIterator($inner);
+            $inner = new ArrayIterator($inner);
         }
         $this->inner = $inner;
     }
 
-    public function next() : Option
+    public function next(): Option
     {
         if (!$this->inner->valid()) {
             return None::create();

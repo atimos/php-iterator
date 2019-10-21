@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
@@ -19,7 +22,7 @@ class StepBy implements Iter
         $this->firstReturned = false;
     }
 
-    public function next() : Option
+    public function next(): Option
     {
         $step = $this->step - 1;
         $item = $this->inner->next();
@@ -29,7 +32,7 @@ class StepBy implements Iter
             return $item;
         }
 
-        while($item->isDefined()) {
+        while ($item->isDefined()) {
             if ($step <= 0) {
                 return $item;
             }

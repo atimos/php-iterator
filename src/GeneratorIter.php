@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
@@ -11,12 +14,12 @@ class GeneratorIter implements Iter
 
     private $inner;
 
-    public function __construct(Callable $inner)
+    public function __construct(callable $inner)
     {
         $this->inner = $inner();
     }
 
-    public function next() : Option
+    public function next(): Option
     {
         if (!$this->inner->valid()) {
             return None::create();

@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
@@ -18,7 +21,7 @@ class Skip implements Iter
         $this->current = 0;
     }
 
-    public function next() : Option
+    public function next(): Option
     {
         while ($this->current < $this->skip) {
             $this->inner->next();

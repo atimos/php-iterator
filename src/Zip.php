@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
@@ -9,8 +12,8 @@ class Zip implements Iter
 {
     use IterImpl;
 
-    private $firstIter;
-    private $secondIter;
+    private $first;
+    private $second;
 
     public function __construct(Iter $first, Iter $second)
     {
@@ -18,7 +21,7 @@ class Zip implements Iter
         $this->second = $second;
     }
 
-    public function next() : Option
+    public function next(): Option
     {
         $firstItem = $this->first->next();
         $secondItem = $this->second->next();

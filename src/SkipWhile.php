@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
@@ -18,14 +21,14 @@ class SkipWhile implements Iter
         $this->found = false;
     }
 
-    public function next() : Option
+    public function next(): Option
     {
         if ($this->found) {
             return $this->inner->next();
         }
         $item = $this->inner->next();
 
-        while($item->isDefined()) {
+        while ($item->isDefined()) {
             if (!($this->skipWhile)(cloneOption($item)->get())) {
                 $this->found = true;
                 return $item;

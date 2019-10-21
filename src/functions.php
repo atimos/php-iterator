@@ -1,11 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
 use PhpOption\Some;
 use PhpOption\None;
 
-function forEachItem(Iter $iter, callable $forEach) : void
+function forEachItem(Iter $iter, callable $forEach): void
 {
     $item = $iter->next();
 
@@ -31,26 +34,30 @@ function fold(Iter $iter, $init, callable $fold)
     return $result;
 }
 
-function count(Iter $iter) : int
+function count(Iter $iter): int
 {
-    return nonCloneFold($iter, 0, function($count) { return $count + 1; });
+    return nonCloneFold($iter, 0, function ($count) {
+        return $count + 1;
+    });
 }
 
-function last(Iter $iter) : Option
+function last(Iter $iter): Option
 {
-    return nonCloneFold($iter, None::create(), function($_result, $item) { return Some::create($item); });
+    return nonCloneFold($iter, None::create(), function ($_, $item) {
+        return Some::create($item);
+    });
 }
 
-function nth(Iter $iter, int $nth) : Option
+function nth(Iter $iter, int $nth): Option
 {
     return $iter->skip($nth)->next();
 }
 
-function find(Iter $iter, callable $find) : Option
+function find(Iter $iter, callable $find): Option
 {
     $item = $iter->next();
 
-    while($item->isDefined()) {
+    while ($item->isDefined()) {
         if (($find)(cloneOption($item)->get())) {
             return $item;
         }
@@ -60,12 +67,12 @@ function find(Iter $iter, callable $find) : Option
     return $item;
 }
 
-function position(Iter $iter, callable $find) : Option
+function position(Iter $iter, callable $find): Option
 {
     $count = 0;
     $item = $iter->next();
 
-    while($item->isDefined()) {
+    while ($item->isDefined()) {
         if (($find)(cloneOption($item)->get())) {
             return Some::create($count);
         }
@@ -76,12 +83,12 @@ function position(Iter $iter, callable $find) : Option
     return $item;
 }
 
-function all(Iter $iter, callable $all) : bool
+function all(Iter $iter, callable $all): bool
 {
     $result = false;
     $item = $iter->next();
 
-    while($item->isDefined()) {
+    while ($item->isDefined()) {
         if (!($all)(cloneOption($item)->get())) {
             return false;
         }
@@ -92,11 +99,11 @@ function all(Iter $iter, callable $all) : bool
     return $result;
 }
 
-function any(Iter $iter, callable $any) : bool
+function any(Iter $iter, callable $any): bool
 {
     $item = $iter->next();
 
-    while($item->isDefined()) {
+    while ($item->isDefined()) {
         if (($any)(cloneOption($item)->get())) {
             return true;
         }
@@ -106,9 +113,9 @@ function any(Iter $iter, callable $any) : bool
     return false;
 }
 
-function max(Iter $iter) : Option
+function max(Iter $iter): Option
 {
-    return nonCloneFold($iter, None::create(), function($result, $item) {
+    return nonCloneFold($iter, None::create(), function ($result, $item) {
         if ($result->isEmpty() || $result->get() < $item) {
             return Some::create($item);
         }
@@ -116,9 +123,9 @@ function max(Iter $iter) : Option
     });
 }
 
-function min(Iter $iter) : Option
+function min(Iter $iter): Option
 {
-    return nonCloneFold($iter, None::create(), function($result, $item) {
+    return nonCloneFold($iter, None::create(), function ($result, $item) {
         if ($result->isEmpty() || $result->get() > $item) {
             return Some::create($item);
         }
@@ -126,17 +133,17 @@ function min(Iter $iter) : Option
     });
 }
 
-function toArray(Iter $iter) : array
+function toArray(Iter $iter): array
 {
-    return nonCloneFold($iter, [], function($result, $item) {
+    return nonCloneFold($iter, [], function ($result, $item) {
         $result[] = $item;
         return $result;
     });
 }
 
-function toAssocArray(Iter $iter) : array
+function toAssocArray(Iter $iter): array
 {
-    return nonCloneFold($iter, [], function($result, $item) {
+    return nonCloneFold($iter, [], function ($result, $item) {
         if (!is_array($item) || \count($item) !== 2) {
             throw new RuntimeException('item has to be an array with two items');
         }
@@ -145,7 +152,7 @@ function toAssocArray(Iter $iter) : array
     });
 }
 
-function cloneOption(Option $option) : Option
+function cloneOption(Option $option): Option
 {
     if ($option->isDefined()) {
         $value = $option->get();

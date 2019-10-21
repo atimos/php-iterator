@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
@@ -16,7 +19,7 @@ class Chain implements Iter
         $this->other = $other;
     }
 
-    public function next() : Option
+    public function next(): Option
     {
         $this->inner->next()->orElse($this->other->next());
     }

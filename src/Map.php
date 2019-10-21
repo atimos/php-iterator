@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Iter;
 
 use PhpOption\Option;
@@ -17,7 +20,7 @@ class Map implements Iter
         $this->inner = $inner;
     }
 
-    public function next() : Option
+    public function next(): Option
     {
         $item = $this->inner->next();
 
