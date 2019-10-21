@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Iter;
 
-use PhpOption\Option;
-use PhpOption\None;
+use PhpOption\{None, Option};
 
 class Take implements Iter
 {

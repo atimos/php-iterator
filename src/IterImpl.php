@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Iter;
 
 use PhpOption\Option;
+use Traversable;
 
 trait IterImpl
 {
@@ -137,7 +138,7 @@ trait IterImpl
         forEachItem($this, $forEach);
     }
 
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
         return new StdIterator($this);
     }

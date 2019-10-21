@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Iter;
 
-class StdIterator implements \Iterator
+use Iterator;
+
+class StdIterator implements Iterator
 {
     /** @var Iter */
     private $inner;

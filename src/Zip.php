@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Iter;
 
-use PhpOption\Option;
-use PhpOption\Some;
-use PhpOption\None;
+use PhpOption\{None, Option, Some};
 
 class Zip implements Iter
 {

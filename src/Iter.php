@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Iter;
 
+use IteratorAggregate;
 use PhpOption\Option;
+use Traversable;
 
-interface Iter extends \IteratorAggregate
+interface Iter extends IteratorAggregate
 {
     public function next(): Option;
     public function last(): Option;
@@ -44,7 +46,7 @@ interface Iter extends \IteratorAggregate
     public function inspect(callable $inspect): Inspector;
     public function forEach(callable $forEach): void;
 
-    public function getIterator(): \Traversable;
+    public function getIterator(): Traversable;
     /** @return array<mixed> */
     public function toArray(): array;
     /** @return array<mixed> */

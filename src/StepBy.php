@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Iter;
 
 use PhpOption\Option;
-use PhpOption\None;
 
 class StepBy implements Iter
 {

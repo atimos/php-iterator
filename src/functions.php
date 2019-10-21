@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Iter;
 
-use PhpOption\Option;
-use PhpOption\Some;
-use PhpOption\None;
+use PhpOption\{Option, Some, None};
+
+use function count as stdcount;
 
 function forEachItem(Iter $iter, callable $forEach): void
 {
@@ -154,7 +154,7 @@ function toArray(Iter $iter): array
 function toAssocArray(Iter $iter): array
 {
     return nonCloneFold($iter, [], static function ($result, $item) {
-        if (!is_array($item) || \count($item) !== 2) {
+        if (!is_array($item) || stdcount($item) !== 2) {
             throw new RuntimeException('item has to be an array with two items');
         }
         $result[$item[0]] = $item[1];

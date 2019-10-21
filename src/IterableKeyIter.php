@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Iter;
 
-use PhpOption\Option;
-use PhpOption\Some;
-use PhpOption\None;
 use ArrayIterator;
+use PhpOption\{None, Option, Some};
 
 class IterableKeyIter implements Iter
 {
