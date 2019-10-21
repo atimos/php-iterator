@@ -9,7 +9,6 @@
 
     <rule ref="SlevomatCodingStandard.TypeHints">
         <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessDocComment"/>
     </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
         <properties>
@@ -17,30 +16,27 @@
             <property name="spacesCountAroundEqualsSign" type="int" value="0" />
         </properties>
     </rule>
-    <!-- waiting for next version, remove exclude from typehint
-    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessDocComment">
+    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
         <properties>
-            <property name="usefulAnnotations" type="array">
-                <element>test</element>
-            </property>
+            <property name="allAnnotationsAreUseful" type="bool" value="true"/>
         </properties>
     </rule>
-    -->
 
     <rule ref="SlevomatCodingStandard.ControlStructures">
         <exclude name="SlevomatCodingStandard.ControlStructures.ControlStructureSpacing"/>
         <exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison"/>
     </rule>
-    <!-- dont know why this fails
-    <rule ref="SlevomatCodingStandard.Namespaces">
-        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
-    </rule>
-    -->
+
+    <!-- dont know why this does not work -->
+    <!-- <rule ref="SlevomatCodingStandard.Namespaces"> -->
+    <!--     <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/> -->
+    <!--     <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions"/> -->
+    <!--     <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants"/> -->
+    <!--     <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions"/> -->
+    <!--     <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/> -->
+    <!--     <exclude name="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/> -->
+    <!--     <exclude name="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/> -->
+    <!-- </rule> -->
 
     <rule ref="SlevomatCodingStandard.Classes">
         <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces"/>
