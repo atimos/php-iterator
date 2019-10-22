@@ -6,6 +6,8 @@ namespace Iter;
 
 use PhpOption\{None, Option};
 
+use function DeepCopy\deep_copy;
+
 class TakeWhile implements Iter
 {
     use IterImpl;
@@ -33,7 +35,7 @@ class TakeWhile implements Iter
         $item = $this->inner->next();
 
         if ($item->isDefined()) {
-            if (!($this->takeWhile)(cloneOption($item)->get())) {
+            if (!($this->takeWhile)(deep_copy($item->get()))) {
                 $this->done = true;
                 return None::create();
             }

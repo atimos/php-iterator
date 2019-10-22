@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Iter;
 
-use PhpOption\{Option, Some};
+use PhpOption\Option;
+
+use function DeepCopy\deep_copy;
 
 class Map implements Iter
 {
@@ -23,12 +25,9 @@ class Map implements Iter
 
     public function next(): Option
     {
-        $item = $this->inner->next();
-
-        if ($item->isDefined()) {
-            $item = Some::create(($this->map)(cloneOption($item)->get()));
-        }
-
-        return $item;
+        return $this->inner->next()
+            ->map(function ($item) {
+                return ($this->map)(deep_copy($item));
+            });
     }
 }

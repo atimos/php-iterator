@@ -135,7 +135,7 @@ trait IterImpl
 
     public function forEach(callable $forEach): void
     {
-        forEachItem($this, $forEach);
+        for_each_item($this, $forEach);
     }
 
     public function getIterator(): Traversable
@@ -146,12 +146,12 @@ trait IterImpl
     /** @return array<mixed> */
     public function toArray(): array
     {
-        return toArray($this);
+        return to_array($this);
     }
 
     /** @return array<mixed> */
     public function toAssocArray(): array
     {
-        return toAssocArray($this);
+        return to_assoc_array($this);
     }
 }

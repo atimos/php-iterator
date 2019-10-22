@@ -6,6 +6,8 @@ namespace Iter;
 
 use PhpOption\Option;
 
+use function DeepCopy\deep_copy;
+
 class SkipWhile implements Iter
 {
     use IterImpl;
@@ -32,7 +34,7 @@ class SkipWhile implements Iter
         $item = $this->inner->next();
 
         while ($item->isDefined()) {
-            if (!($this->skipWhile)(cloneOption($item)->get())) {
+            if (!($this->skipWhile)(deep_copy($item->get()))) {
                 $this->found = true;
                 return $item;
             }

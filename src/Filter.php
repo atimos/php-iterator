@@ -6,6 +6,8 @@ namespace Iter;
 
 use PhpOption\Option;
 
+use function DeepCopy\deep_copy;
+
 class Filter implements Iter
 {
     use IterImpl;
@@ -26,7 +28,7 @@ class Filter implements Iter
         $item = $this->inner->next();
 
         while ($item->isDefined()) {
-            if (($this->filter)(cloneOption($item)->get())) {
+            if (($this->filter)(deep_copy($item->get()))) {
                 return $item;
             }
             $item = $this->inner->next();

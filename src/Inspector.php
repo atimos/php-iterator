@@ -6,6 +6,8 @@ namespace Iter;
 
 use PhpOption\Option;
 
+use function DeepCopy\deep_copy;
+
 class Inspector implements Iter
 {
     use IterImpl;
@@ -23,12 +25,10 @@ class Inspector implements Iter
 
     public function next(): Option
     {
-        $item = $this->inner->next();
-
-        if ($item->isDefined()) {
-            ($this->inspect)(cloneOption($item)->get());
-        }
-
-        return $item;
+        return $this->inner->next()
+            ->map(function ($item) {
+                ($this->inspect)(deep_copy($item));
+                return $item;
+            });
     }
 }

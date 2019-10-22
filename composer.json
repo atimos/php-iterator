@@ -22,7 +22,8 @@
         "slevomat/coding-standard": "^5.0"
     },
     "require": {
-        "phpoption/phpoption": "^1.5"
+        "phpoption/phpoption": "^1.5",
+        "myclabs/deep-copy": "^1.9"
     },
     "scripts": {
         "style:check": "phpcs ./src ./test --standard=./cs-ruleset.xml --extensions=php",
