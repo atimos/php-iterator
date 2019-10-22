@@ -6,7 +6,7 @@ namespace Iter;
 
 use PhpOption\{Option, Some, None};
 
-use function count as stdcount;
+use function count as std_count;
 use function DeepCopy\deep_copy;
 
 function for_each(Iter $iter, callable $forEach): void
@@ -19,10 +19,6 @@ function for_each(Iter $iter, callable $forEach): void
     }
 }
 
-/**
- * @return mixed
- * @param mixed $init
- */
 function fold(Iter $iter, $init, callable $fold)
 {
     $item = $iter->next();
@@ -135,9 +131,6 @@ function min(Iter $iter): Option
     });
 }
 
-/**
- * @return array<int, mixed>
- */
 function to_array(Iter $iter): array
 {
     return non_copy_fold($iter, [], static function ($result, $item) {
@@ -146,24 +139,17 @@ function to_array(Iter $iter): array
     });
 }
 
-/**
- * @return array<mixed, mixed>
- */
 function to_assoc_array(Iter $iter): array
 {
     return non_copy_fold($iter, [], static function ($result, $item) {
-        if (!is_array($item) || stdcount($item) !== 2) {
-            throw new RuntimeException('item has to be an array with two items');
-        }
+        assert(is_array($item));
+        assert(std_count($item) === 2);
+
         $result[$item[0]] = $item[1];
         return $result;
     });
 }
 
-/**
- * @return mixed
- * @param mixed $init
- */
 function non_copy_fold(Iter $iter, $init, callable $fold)
 {
     $item = $iter->next();

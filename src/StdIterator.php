@@ -39,9 +39,7 @@ class StdIterator implements Iterator
     /** @return mixed */
     public function current()
     {
-        if (!$this->valid()) {
-            throw new RuntimeException('Invalid value');
-        }
+        assert($this->valid());
 
         return $this->item->get();
     }

@@ -6,6 +6,10 @@ namespace Iter;
 
 use PhpOption\Option;
 
+/**
+ * @template T
+ * @implements Iter<T>
+ */
 class Chain implements Iter
 {
     use IterImpl;
@@ -21,8 +25,9 @@ class Chain implements Iter
         $this->other = $other;
     }
 
+    /** @return Option<T> */
     public function next(): Option
     {
-        $this->inner->next()->orElse($this->other->next());
+        return $this->inner->next()->orElse($this->other->next());
     }
 }

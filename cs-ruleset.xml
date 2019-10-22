@@ -7,18 +7,10 @@
     <rule ref="SlevomatCodingStandard.PHP"/>
     <rule ref="SlevomatCodingStandard.Operators"/>
 
-    <rule ref="SlevomatCodingStandard.TypeHints">
-        <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint"/>
-    </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
         <properties>
             <property name="newlinesCountBetweenOpenTagAndDeclare" type="int" value="2" />
             <property name="spacesCountAroundEqualsSign" type="int" value="0" />
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
-        <properties>
-            <property name="allAnnotationsAreUseful" type="bool" value="true"/>
         </properties>
     </rule>
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Iter;
 
-use PhpOption\{None, Option, Some};
 use Generator;
+use PhpOption\{None, Option, Some};
 
 class GeneratorIter implements Iter
 {
