@@ -31,7 +31,7 @@
         "analyze": "psalm",
         "mess:check": "phpmd ./src,./test text ./phpmd-ruleset.xml",
         "test:unit": "phpunit --testdox --testsuite prop",
-        "test": [
+        "qa": [
             "@analyze",
             "@style:check",
             "@mess:check",
