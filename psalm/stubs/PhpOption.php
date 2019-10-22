@@ -4,14 +4,12 @@ namespace PhpOption;
 
 use IteratorAggregate;
 
-/**
- * @template T
- */
+/** @template I */
 abstract class Option implements IteratorAggregate
 {
     /**
      * @throws \RuntimeException
-     * @return T
+     * @return I
      */
     abstract public function get();
 
@@ -26,9 +24,9 @@ abstract class Option implements IteratorAggregate
     abstract public function isDefined();
 
     /**
-     * @template U
-     * @param callable(T):U $callable
-     * @return Option<U>
+     * @template N
+     * @param callable(I):N $callable
+     * @return Option<N>
      */
     abstract public function map($callable);
 }
