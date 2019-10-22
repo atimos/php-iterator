@@ -13,9 +13,9 @@ class Cycle implements Iter
 {
     use IterImpl;
 
-    /** @var array<mixed> */
+    /** @var array<int, mixed> */
     private $sourceCycle;
-    /** @var array<mixed> */
+    /** @var array<int, mixed> */
     private $cycle;
     /** @var Iter */
     private $inner;

@@ -143,13 +143,13 @@ trait IterImpl
         return new StdIterator($this);
     }
 
-    /** @return array<mixed> */
+    /** @return array<int, mixed> */
     public function toArray(): array
     {
         return to_array($this);
     }
 
-    /** @return array<mixed> */
+    /** @return array<mixed, mixed> */
     public function toAssocArray(): array
     {
         return to_assoc_array($this);

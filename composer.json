@@ -14,12 +14,12 @@
         "files": ["src/functions.php"]
     },
     "require-dev": {
-        "phan/phan": "^2.2",
         "phpunit/phpunit": "^8.3",
         "giorgiosironi/eris": "^0.11.0",
         "squizlabs/php_codesniffer": "^3.5",
         "phpmd/phpmd": "^2.7",
-        "slevomat/coding-standard": "^5.0"
+        "slevomat/coding-standard": "^5.0",
+        "vimeo/psalm": "^3.6"
     },
     "require": {
         "phpoption/phpoption": "^1.5",
@@ -28,7 +28,14 @@
     "scripts": {
         "style:check": "phpcs ./src ./test --standard=./cs-ruleset.xml --extensions=php",
         "style:fix": "phpcbf ./src ./test --standard=./cs-ruleset.xml --extensions=php",
+        "analyze": "psalm",
         "mess:check": "phpmd ./src,./test text ./phpmd-ruleset.xml",
-        "test": "phpunit --testdox --testsuite prop"
+        "test:unit": "phpunit --testdox --testsuite prop",
+        "test": [
+            "@analyze",
+            "@style:check",
+            "@mess:check",
+            "@test:unit"
+        ]
     }
 }

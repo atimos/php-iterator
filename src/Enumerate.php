@@ -6,11 +6,14 @@ namespace Iter;
 
 use PhpOption\{Option, Some};
 
+/**
+ * @template T
+ */
 class Enumerate implements Iter
 {
     use IterImpl;
 
-    /** @var Iter */
+    /** @var Iter<T> */
     private $inner;
     /** @var int */
     private $idx;
@@ -21,6 +24,7 @@ class Enumerate implements Iter
         $this->idx = 0;
     }
 
+    /** Option<array{0: int, 1: T}> */
     public function next(): Option
     {
         $item = $this->inner->next();

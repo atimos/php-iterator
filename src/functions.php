@@ -136,7 +136,7 @@ function min(Iter $iter): Option
 }
 
 /**
- * @return array<mixed>
+ * @return array<int, mixed>
  */
 function to_array(Iter $iter): array
 {
@@ -147,7 +147,7 @@ function to_array(Iter $iter): array
 }
 
 /**
- * @return array<mixed>
+ * @return array<mixed, mixed>
  */
 function to_assoc_array(Iter $iter): array
 {
