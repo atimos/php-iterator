@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\{None, Option};
 
 use function DeepCopy\deep_copy;
 
+/** @template I */
 class TakeWhile implements Iter
 {
     use IterImpl;
 
-    /** @var callable */
+    /** @var callable(I):bool */
     private $takeWhile;
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
     /** @var bool */
     private $done;
@@ -26,6 +27,7 @@ class TakeWhile implements Iter
         $this->done = false;
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         if ($this->done === true) {

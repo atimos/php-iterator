@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\Option;
 
+/** @template I */
 class Skip implements Iter
 {
     use IterImpl;
 
     /** @var int */
     private $skip;
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
     /** @var int */
     private $current;
@@ -24,6 +25,7 @@ class Skip implements Iter
         $this->current = 0;
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         while ($this->current < $this->skip) {

@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\{None, Option};
 
+/** @template I */
 class Take implements Iter
 {
     use IterImpl;
 
     /** @var int */
     private $take;
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
 
     public function __construct(Iter $inner, int $take)
@@ -21,6 +22,7 @@ class Take implements Iter
         $this->inner = $inner;
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         if ($this->take > 0) {

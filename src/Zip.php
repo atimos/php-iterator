@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\{None, Option, Some};
 
+/** @template I */
 class Zip implements Iter
 {
     use IterImpl;
 
-    /** @var Iter */
+    /** @var Iter<I> */
     private $first;
-    /** @var Iter */
+    /** @var Iter<I> */
     private $second;
 
     public function __construct(Iter $first, Iter $second)
@@ -21,6 +22,7 @@ class Zip implements Iter
         $this->second = $second;
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         $firstItem = $this->first->next();

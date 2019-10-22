@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\Option;
 
 use function DeepCopy\deep_copy;
 
+/** @template I */
 class Filter implements Iter
 {
     use IterImpl;
 
-    /** @var callable */
+    /** @var callable(I):bool */
     private $filter;
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
 
     public function __construct(Iter $inner, callable $filter)
@@ -23,6 +24,7 @@ class Filter implements Iter
         $this->inner = $inner;
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         $item = $this->inner->next();

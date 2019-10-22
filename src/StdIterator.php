@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use Iterator;
+use PhpOption\Option;
 
+/** @template I */
 class StdIterator implements Iterator
 {
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
-    /** @var mixed */
+    /** @var Option<I> */
     private $item;
     /** @var int */
     private $idx = 0;
@@ -36,7 +38,7 @@ class StdIterator implements Iterator
         return $this->item->isDefined();
     }
 
-    /** @return mixed */
+    /** @return Option<I> */
     public function current()
     {
         assert($this->valid());
@@ -44,7 +46,7 @@ class StdIterator implements Iterator
         return $this->item->get();
     }
 
-    public function key(): int
+    public function key(): ?int
     {
         if (!$this->valid()) {
             return null;

@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\{None, Option, Some};
 
+/** @template I */
 class Peekable implements Iter
 {
     use IterImpl;
 
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
-    /** @var Option */
+    /** @var Option<I> */
     private $peeked;
 
     public function __construct(Iter $inner)
@@ -21,6 +22,7 @@ class Peekable implements Iter
         $this->peeked = None::create();
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         if ($this->peeked->isDefined()) {
@@ -32,6 +34,10 @@ class Peekable implements Iter
         return $this->inner->next();
     }
 
+    /**
+     * @return Option<I>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function peek(): Option
     {
         if (!$this->peeked->isDefined()) {

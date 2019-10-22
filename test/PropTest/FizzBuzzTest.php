@@ -6,7 +6,7 @@ namespace Test\PropTest;
 
 use Eris\Generator;
 use Eris\TestTrait;
-use Iter\{IterableIter, GeneratorIter};
+use LazyIter\{IterableIter, GeneratorIter};
 use PhpOption\Some;
 use PHPUnit\Framework\TestCase;
 

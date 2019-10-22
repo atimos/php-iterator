@@ -2,34 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use IteratorAggregate;
 use PhpOption\Option;
 use Traversable;
 
 /**
- * @template T
+ * @template I
  */
 interface Iter extends IteratorAggregate
 {
-    /** @return Option<T> */
+    /** @return Option<I> */
     public function next(): Option;
 
     /**
-     * @return Option<T>
+     * @return Option<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function last(): Option;
 
     /**
-     * @return Option<T>
+     * @return Option<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function nth(int $nth): Option;
 
     /**
-     * @return Option<T>
+     * @param callable(I):bool $find
+     * @return Option<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function find(callable $find): Option;
@@ -41,60 +42,60 @@ interface Iter extends IteratorAggregate
     public function position(callable $find): Option;
 
     /**
-     * @return Peekable<T>
+     * @return Peekable<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function peekable(): Peekable;
 
     /**
-     * @return Enumerate<T>
+     * @return Enumerate<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function enumerate(): Enumerate;
 
     /**
      * @template U
-     * @param callable(T):U $mapper
+     * @param callable(I):U $mapper
      * @return Map<U>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function map(callable $mapper): Map;
 
     /**
-     * @param callable(T):bool $filter
-     * @return Filter<T>
+     * @param callable(I):bool $filter
+     * @return Filter<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function filter(callable $filter): Filter;
 
     /**
-     * @return StepBy<T>
+     * @return StepBy<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function stepBy(int $step): StepBy;
 
     /**
-     * @return Skip<T>
+     * @return Skip<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function skip(int $skip): Skip;
 
     /**
-     * @param callable(T):bool $skipWhile
-     * @return SkipWhile<T>
+     * @param callable(I):bool $skipWhile
+     * @return SkipWhile<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function skipWhile(callable $skipWhile): SkipWhile;
 
     /**
-     * @return Take<T>
+     * @return Take<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function take(int $take): Take;
 
     /**
-     * @param callable(T):bool $takeWhile
-     * @return TakeWhile<T>
+     * @param callable(I):bool $takeWhile
+     * @return TakeWhile<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function takeWhile(callable $takeWhile): TakeWhile;
@@ -102,7 +103,7 @@ interface Iter extends IteratorAggregate
     /**
      * @template U
      * @param Iter<U> $other
-     * @return Zip<T, U>
+     * @return Zip<I, U>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function zip(Iter $other): Zip;
@@ -110,28 +111,28 @@ interface Iter extends IteratorAggregate
     /**
      * @template U
      * @param Iter<U> $other
-     * @return Chain<T, U>
+     * @return Chain<I, U>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function chain(Iter $other): Chain;
 
     /**
-     * @return Cycle<T>
+     * @return Cycle<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function cycle(): Cycle;
 
     /**
-     * @return Fuse<T>
+     * @return Fuse<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function fuse(): Fuse;
 
     /**
-     * @template U
-     * @param U $init
-     * @param callable(U, T):U $fold
-     * @return U
+     * @template R
+     * @param R $init
+     * @param callable(R, I):R $fold
+     * @return R
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function fold($init, callable $fold);
@@ -140,56 +141,56 @@ interface Iter extends IteratorAggregate
     public function count(): int;
 
     /**
-     * @param callable(T):bool $all
+     * @param callable(I):bool $all
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function all(callable $all): bool;
 
     /**
-     * @param callable(T):bool $any
+     * @param callable(I):bool $any
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function any(callable $any): bool;
 
     /**
-     * @return Option<T>
+     * @return Option<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function max(): Option;
 
     /**
-     * @return Option<T>
+     * @return Option<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function min(): Option;
 
     /**
-     * @param callable(T):void $inspect
-     * @return Inspector<T>
+     * @param callable(I):void $inspect
+     * @return Inspector<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function inspect(callable $inspect): Inspector;
 
     /**
-     * @param callable(T):void $forEach
+     * @param callable(I):void $forEach
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function forEach(callable $forEach): void;
 
     /**
-     * @return Traversable<T>
+     * @return Traversable<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function getIterator(): Traversable;
 
     /**
-     * @return array<int, T>
+     * @return array<int, I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function toArray(): array;
 
     /**
-     * @return array<mixed, mixed>
+     * @return array<array-key, I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function toAssocArray(): array;

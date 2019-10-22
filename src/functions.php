@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\{Option, Some, None};
 
@@ -19,6 +19,14 @@ function for_each(Iter $iter, callable $forEach): void
     }
 }
 
+/**
+ * @template I
+ * @template R
+ * @param Iter<I> $iter
+ * @param R $init
+ * @param callable(R, I):R $fold
+ * @return R
+ */
 function fold(Iter $iter, $init, callable $fold)
 {
     $item = $iter->next();
@@ -32,25 +40,55 @@ function fold(Iter $iter, $init, callable $fold)
     return $result;
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ */
 function count(Iter $iter): int
 {
-    return non_copy_fold($iter, 0, static function ($count) {
+    return non_copy_fold($iter, 0, static function (int $count): int {
         return $count + 1;
     });
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @return Option<I>
+ */
 function last(Iter $iter): Option
 {
-    return non_copy_fold($iter, None::create(), static function ($_, $item) {
-        return Some::create($item);
-    });
+    return non_copy_fold(
+        $iter,
+        None::create(),
+        /**
+         * @template I
+         * @param Option<I> $_
+         * @param I $item
+         * @return Option<I>
+         */
+        static function ($_, $item) {
+            return Some::create($item);
+        }
+    );
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @return Option<I>
+ */
 function nth(Iter $iter, int $nth): Option
 {
     return $iter->skip($nth)->next();
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @param callable(I):bool $find
+ * @return Option<I>
+ */
 function find(Iter $iter, callable $find): Option
 {
     $item = $iter->next();
@@ -65,6 +103,12 @@ function find(Iter $iter, callable $find): Option
     return $item;
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @param callable(I):bool $find
+ * @return Option<int>
+ */
 function position(Iter $iter, callable $find): Option
 {
     $count = 0;
@@ -81,6 +125,11 @@ function position(Iter $iter, callable $find): Option
     return $item;
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @param callable(I):bool $all
+ */
 function all(Iter $iter, callable $all): bool
 {
     $result = false;
@@ -97,6 +146,11 @@ function all(Iter $iter, callable $all): bool
     return $result;
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @param callable(I):bool $any
+ */
 function any(Iter $iter, callable $any): bool
 {
     $item = $iter->next();
@@ -111,45 +165,110 @@ function any(Iter $iter, callable $any): bool
     return false;
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @return Option<I>
+ */
 function max(Iter $iter): Option
 {
-    return non_copy_fold($iter, None::create(), static function ($result, $item) {
-        if ($result->isEmpty() || $result->get() < $item) {
-            return Some::create($item);
+    return non_copy_fold(
+        $iter,
+        None::create(),
+        /**
+         * @template I
+         * @param Option<I> $result
+         * @param I $item
+         * @return Option<I>
+         */
+        static function ($result, $item) {
+            if ($result->isEmpty() || $result->get() < $item) {
+                return Some::create($item);
+            }
+            return $result;
         }
-        return $result;
-    });
+    );
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @return Option<I>
+ */
 function min(Iter $iter): Option
 {
-    return non_copy_fold($iter, None::create(), static function ($result, $item) {
-        if ($result->isEmpty() || $result->get() > $item) {
-            return Some::create($item);
+    return non_copy_fold(
+        $iter,
+        None::create(),
+        /**
+         * @template I
+         * @param Option<I> $result
+         * @param I $item
+         * @return Option<I>
+         */
+        static function ($result, $item) {
+            if ($result->isEmpty() || $result->get() > $item) {
+                return Some::create($item);
+            }
+            return $result;
         }
-        return $result;
-    });
+    );
 }
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @return array<I>
+ */
 function to_array(Iter $iter): array
 {
-    return non_copy_fold($iter, [], static function ($result, $item) {
-        $result[] = $item;
-        return $result;
-    });
+    return non_copy_fold(
+        $iter,
+        [],
+        /**
+         * @template I
+         * @param array<I> $result
+         * @param I $item
+         * @return array<I>
+         */
+        static function ($result, $item) {
+            $result[] = $item;
+            return $result;
+        }
+    );
 }
 
+/**
+ * @template V
+ * @param Iter<array{0: array-key, 1: V}> $iter
+ * @return array<array-key, V>
+ */
 function to_assoc_array(Iter $iter): array
 {
-    return non_copy_fold($iter, [], static function ($result, $item) {
-        assert(is_array($item));
-        assert(std_count($item) === 2);
-
-        $result[$item[0]] = $item[1];
-        return $result;
-    });
+    return non_copy_fold(
+        $iter,
+        [],
+        /**
+         * @template V
+         * @param array<array-key, V> $result
+         * @param array{0: array-key, 1: V} $item
+         * @return array<array-key, V>
+         */
+        static function ($result, $item) {
+            $result[$item[0]] = $item[1];
+            return $result;
+        }
+    );
 }
 
+/**
+ * @template I
+ * @template R
+ * @param Iter<I> $iter
+ * @param R $init
+ * @param callable(R, I):R $fold
+ * @return R
+ */
 function non_copy_fold(Iter $iter, $init, callable $fold)
 {
     $item = $iter->next();

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\Option;
 use Traversable;
@@ -24,6 +24,7 @@ trait IterImpl
         return find($this, $find);
     }
 
+    /** @return Option<int> */
     public function position(callable $find): Option
     {
         return position($this, $find);
@@ -94,10 +95,6 @@ trait IterImpl
         return new Fuse($this);
     }
 
-    /**
-     * @param mixed $init
-     * @return mixed
-     */
     public function fold($init, callable $fold)
     {
         return fold($this, $init, $fold);
@@ -135,19 +132,22 @@ trait IterImpl
 
     public function forEach(callable $forEach): void
     {
-        for_each_item($this, $forEach);
+        for_each($this, $forEach);
     }
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function getIterator(): Traversable
     {
         return new StdIterator($this);
     }
 
+    /** @return array<int, mixed> */
     public function toArray(): array
     {
         return to_array($this);
     }
 
+    /** @return array<array-key, mixed> */
     public function toAssocArray(): array
     {
         return to_assoc_array($this);

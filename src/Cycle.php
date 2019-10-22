@@ -2,22 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\{None, Option};
 
 use function count;
 use function DeepCopy\deep_copy;
 
+/** @template I */
 class Cycle implements Iter
 {
     use IterImpl;
 
-    /** @var array<int, mixed> */
+    /** @var array<int, I> */
     private $sourceCycle;
-    /** @var array<int, mixed> */
+    /** @var array<int, I> */
     private $cycle;
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
 
     public function __construct(Iter $inner)
@@ -27,6 +28,7 @@ class Cycle implements Iter
         $this->cycle = [];
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         $item = $this->inner->next();

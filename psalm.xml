@@ -10,18 +10,20 @@
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
+    <plugins>
+        <plugin filename="psalm/Plugin.php" />
+    </plugins>
+
     <projectFiles>
         <directory name="src" />
-        <directory name="test" />
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="psalm" />
         </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
         <LessSpecificReturnType errorLevel="error" />
-
-        <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
 
         <DeprecatedMethod errorLevel="error" />
         <DeprecatedProperty errorLevel="error" />

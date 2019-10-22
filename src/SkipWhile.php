@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\Option;
 
 use function DeepCopy\deep_copy;
 
+/** @template I */
 class SkipWhile implements Iter
 {
     use IterImpl;
 
-    /** @var callable */
+    /** @var callable(I):bool */
     private $skipWhile;
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
     /** @var bool */
     private $found;
@@ -26,6 +27,7 @@ class SkipWhile implements Iter
         $this->found = false;
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         if ($this->found) {

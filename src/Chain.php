@@ -2,21 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\Option;
 
-/**
- * @template T
- * @implements Iter<T>
- */
+/** @template I */
 class Chain implements Iter
 {
     use IterImpl;
 
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
-    /** @var Iter */
+    /** @var Iter<I> */
     private $other;
 
     public function __construct(Iter $inner, Iter $other)
@@ -25,7 +22,7 @@ class Chain implements Iter
         $this->other = $other;
     }
 
-    /** @return Option<T> */
+    /** @return Option<I> */
     public function next(): Option
     {
         return $this->inner->next()->orElse($this->other->next());

@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\{Option, Some};
 
-/**
- * @template T
- */
+/** @template I */
 class Enumerate implements Iter
 {
     use IterImpl;
 
-    /** @var Iter<T> */
+    /** @var Iter<I> */
     private $inner;
     /** @var int */
     private $idx;
@@ -24,7 +22,7 @@ class Enumerate implements Iter
         $this->idx = 0;
     }
 
-    /** Option<array{0: int, 1: T}> */
+    /** Option<array{0: int, 1: I}> */
     public function next(): Option
     {
         $item = $this->inner->next();

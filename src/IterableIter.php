@@ -2,19 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use ArrayIterator;
+use Iterator;
 use PhpOption\{None, Option, Some};
 
+/**
+ * @template I
+ * @psalm-suppress UnusedClass
+ */
 class IterableIter implements Iter
 {
     use IterImpl;
 
-    /** @var iterable<mixed> */
+    /** @var Iterator<mixed, I> */
     private $inner;
 
-    /** @param iterable<mixed> $inner */
+    /** @param array<mixed, I>|Iterator<mixed, I> $inner */
     public function __construct(iterable $inner)
     {
         if (is_array($inner)) {
@@ -23,6 +28,7 @@ class IterableIter implements Iter
         $this->inner = $inner;
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         if (!$this->inner->valid()) {

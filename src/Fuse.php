@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\{None, Option};
 
+/** @template I */
 class Fuse implements Iter
 {
     use IterImpl;
 
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
     /** @var bool */
     private $done;
@@ -21,6 +22,7 @@ class Fuse implements Iter
         $this->done = false;
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         if ($this->done === true) {

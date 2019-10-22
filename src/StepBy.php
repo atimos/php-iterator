@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Iter;
+namespace LazyIter;
 
 use PhpOption\Option;
 
+/** @template I */
 class StepBy implements Iter
 {
     use IterImpl;
 
     /** @var int */
     private $step;
-    /** @var Iter */
+    /** @var Iter<I> */
     private $inner;
     /** @var bool */
     private $firstReturned;
@@ -24,6 +25,7 @@ class StepBy implements Iter
         $this->firstReturned = false;
     }
 
+    /** @return Option<I> */
     public function next(): Option
     {
         $step = $this->step - 1;
