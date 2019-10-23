@@ -19,7 +19,7 @@ class IterableKeyValueIter implements Iter
     /** @var Iterator<mixed, I> */
     private $inner;
 
-    /** @param array<mixed, I>|Iterator<mixed, I> $inner */
+    /** @param array<array-key, I>|Iterator<mixed, I> $inner */
     public function __construct($inner)
     {
         if (is_array($inner)) {
