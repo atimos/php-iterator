@@ -10,16 +10,17 @@ use PhpOption\{None, Option, Some};
 
 /**
  * @template I
+ * @template K
  * @psalm-suppress UnusedClass
  */
 class IterableKeyValueIter implements Iter
 {
     use IterImpl;
 
-    /** @var Iterator<mixed, I> */
+    /** @var Iterator<K, I> */
     private $inner;
 
-    /** @param array<array-key, I>|Iterator<mixed, I> $inner */
+    /** @param array<K, I>|Iterator<K, I> $inner */
     public function __construct($inner)
     {
         if (is_array($inner)) {
@@ -28,7 +29,7 @@ class IterableKeyValueIter implements Iter
         $this->inner = $inner;
     }
 
-    /** @return Option<I> */
+    /** @return Option<array{0:K, 1:I}> */
     public function next(): Option
     {
         if (!$this->inner->valid()) {

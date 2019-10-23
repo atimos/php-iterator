@@ -10,16 +10,17 @@ use PhpOption\{None, Option, Some};
 
 /**
  * @template I
+ * @template K
  * @psalm-suppress UnusedClass
  */
 class IterableIter implements Iter
 {
     use IterImpl;
 
-    /** @var Iterator<mixed, I> */
+    /** @var Iterator<K, I> */
     private $inner;
 
-    /** @param array<array-key, I>|Iterator<mixed, I> $inner */
+    /** @param array<K, I>|Iterator<K, I> $inner */
     public function __construct(iterable $inner)
     {
         if (is_array($inner)) {
