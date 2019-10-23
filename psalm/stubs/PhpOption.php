@@ -30,4 +30,3 @@ abstract class Option implements IteratorAggregate
      */
     abstract public function map($callable);
 }
-
