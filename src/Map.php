@@ -34,7 +34,7 @@ class Map implements Iter
             /** @param I $item @return N */
             function ($item) {
                 return ($this->map)(deep_copy($item));
-            },
+            }
         );
     }
 }
