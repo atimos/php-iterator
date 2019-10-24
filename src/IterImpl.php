@@ -9,27 +9,6 @@ use Traversable;
 
 trait IterImpl
 {
-    public function last(): Option
-    {
-        return last($this);
-    }
-
-    public function nth(int $nth): Option
-    {
-        return nth($this, $nth);
-    }
-
-    public function find(callable $find): Option
-    {
-        return find($this, $find);
-    }
-
-    /** @return Option<int> */
-    public function position(callable $find): Option
-    {
-        return position($this, $find);
-    }
-
     public function peekable(): Peekable
     {
         return new Peekable($this);
@@ -95,11 +74,44 @@ trait IterImpl
         return new Fuse($this);
     }
 
+    public function inspect(callable $inspect): Inspector
+    {
+        return new Inspector($this, $inspect);
+    }
+
+    /** @psalm-suppress PossiblyUnusedMethod */
+    public function getIterator(): Traversable
+    {
+        return new StdIterator($this);
+    }
+
+    public function last(): Option
+    {
+        return last($this);
+    }
+
+    public function nth(int $nth): Option
+    {
+        return nth($this, $nth);
+    }
+
+    public function find(callable $find): Option
+    {
+        return find($this, $find);
+    }
+
+    /** @return Option<int> */
+    public function position(callable $find): Option
+    {
+        return position($this, $find);
+    }
+
     public function fold($init, callable $fold)
     {
         return fold($this, $init, $fold);
     }
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function count(): int
     {
         return count($this);
@@ -125,20 +137,9 @@ trait IterImpl
         return min($this);
     }
 
-    public function inspect(callable $inspect): Inspector
-    {
-        return new Inspector($this, $inspect);
-    }
-
     public function forEach(callable $forEach): void
     {
         for_each($this, $forEach);
-    }
-
-    /** @psalm-suppress PossiblyUnusedMethod */
-    public function getIterator(): Traversable
-    {
-        return new StdIterator($this);
     }
 
     /** @return array<int, mixed> */

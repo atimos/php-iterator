@@ -7,6 +7,8 @@ namespace LazyIter;
 use Iterator;
 use PhpOption\Option;
 
+use function DeepCopy\deep_copy;
+
 /** @template I */
 class StdIterator implements Iterator
 {
@@ -38,16 +40,22 @@ class StdIterator implements Iterator
         return $this->item->isDefined();
     }
 
-    /** @return Option<I> */
+    /** @return ?I */
     public function current()
     {
         assert($this->valid());
 
-        return $this->item->get();
+        if (!$this->valid()) {
+            return null;
+        }
+
+        return deep_copy($this->item->get());
     }
 
     public function key(): ?int
     {
+        assert($this->valid());
+
         if (!$this->valid()) {
             return null;
         }

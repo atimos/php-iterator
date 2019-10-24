@@ -33,7 +33,7 @@ class Inspector implements Iter
             function ($item) {
                 ($this->inspect)(deep_copy($item));
                 return $item;
-            },
+            }
         );
     }
 }

@@ -7,11 +7,12 @@ namespace LazyIter;
 use IteratorAggregate;
 use PhpOption\Option;
 use Traversable;
+use countable;
 
 /**
  * @template I
  */
-interface Iter extends IteratorAggregate
+interface Iter extends IteratorAggregate, countable
 {
     /** @return Option<I> */
     public function next(): Option;
@@ -129,6 +130,13 @@ interface Iter extends IteratorAggregate
     public function fuse(): Fuse;
 
     /**
+     * @param callable(I):void $inspect
+     * @return Inspector<I>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function inspect(callable $inspect): Inspector;
+
+    /**
      * @template R
      * @param R $init
      * @param callable(R, I):R $fold
@@ -163,13 +171,6 @@ interface Iter extends IteratorAggregate
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function min(): Option;
-
-    /**
-     * @param callable(I):void $inspect
-     * @return Inspector<I>
-     * @psalm-suppress PossiblyUnusedMethod
-     */
-    public function inspect(callable $inspect): Inspector;
 
     /**
      * @param callable(I):void $forEach

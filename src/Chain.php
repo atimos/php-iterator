@@ -25,6 +25,12 @@ class Chain implements Iter
     /** @return Option<I> */
     public function next(): Option
     {
-        return $this->inner->next()->orElse($this->other->next());
+        $item = $this->inner->next();
+
+        if ($item->isEmpty()) {
+            $item = $this->other->next();
+        }
+
+        return $item;
     }
 }

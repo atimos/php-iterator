@@ -13,6 +13,15 @@
         },
         "files": ["src/functions.php"]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "LazyIter\\Test\\":"test/"
+        }
+    },
+    "require": {
+        "phpoption/phpoption": "^1.5",
+        "myclabs/deep-copy": "^1.9"
+    },
     "require-dev": {
         "phpunit/phpunit": "^8.3",
         "giorgiosironi/eris": "^0.11.0",
@@ -21,21 +30,19 @@
         "slevomat/coding-standard": "^5.0",
         "vimeo/psalm": "^3.6"
     },
-    "require": {
-        "phpoption/phpoption": "^1.5",
-        "myclabs/deep-copy": "^1.9"
-    },
     "scripts": {
         "style:check": "phpcs ./src ./test --standard=./cs-ruleset.xml --extensions=php",
         "style:fix": "phpcbf ./src ./test --standard=./cs-ruleset.xml --extensions=php",
         "analyze": "psalm",
         "mess:check": "phpmd ./src,./test text ./phpmd-ruleset.xml",
-        "test:unit": "phpunit --testdox --testsuite prop",
+        "test:prop": "phpunit --testdox --no-coverage --testsuite PropTest",
+        "test:unit": "phpunit --testdox --no-coverage --testsuite UnitTest",
+        "test": "phpunit --testdox",
         "qa": [
             "@analyze",
             "@style:check",
             "@mess:check",
-            "@test:unit"
+            "@test"
         ]
     }
 }

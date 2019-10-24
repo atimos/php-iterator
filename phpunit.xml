@@ -1,7 +1,21 @@
-<phpunit bootstrap="vendor/autoload.php">
+<phpunit bootstrap="vendor/autoload.php" colors="true" beStrictAboutOutputDuringTests="0">
     <testsuites>
-        <testsuite name="prop">
+        <testsuite name="PropTest">
             <directory>test/PropTest</directory>
         </testsuite>
+        <testsuite name="UnitTest">
+            <directory>test/UnitTest</directory>
+        </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-text" target="php://stdout" showOnlySummary="true"/>
+        <log type="coverage-html" target="./report/coverage/html"/>
+    </logging>
 </phpunit>

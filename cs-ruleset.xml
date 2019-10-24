@@ -17,6 +17,7 @@
     <rule ref="SlevomatCodingStandard.ControlStructures">
         <exclude name="SlevomatCodingStandard.ControlStructures.ControlStructureSpacing"/>
         <exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses"/>
     </rule>
 
     <!-- <rule ref="SlevomatCodingStandard.Namespaces"> -->
@@ -53,7 +54,7 @@
         <properties>
             <property name="rootNamespaces" type="array">
                 <element key="src" value="LazyIter"/>
-                <element key="test" value="Test"/>
+                <element key="test" value="LazyIter\Test"/>
             </property>
         </properties>
     </rule>

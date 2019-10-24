@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Test\PropTest;
+namespace LazyIter\Test\PropTest;
 
 use Eris\Generator;
 use Eris\TestTrait;
@@ -17,7 +17,7 @@ class FizzBuzzTest extends TestCase
     /**
      * @test
      */
-    public function testFizzBuzzPattern(): void
+    public function fizzBuzzPattern(): void
     {
         $this->forAll(Generator\pos())->then(function ($n): void {
             $expected = Some::create($this->rosettaImplementation($n));
@@ -27,12 +27,12 @@ class FizzBuzzTest extends TestCase
                 ->map(static function ($item) {
                     return trim(implode('', $item));
                 })
-                ->zip(new GeneratorIter(static function () {
+                ->zip(new IterableIter((static function () {
                     $number = 0;
                     while (true) {
                         yield (string) $number += 1;
                     }
-                }))
+                })()))
                 ->map(static function ($data) {
                     return max($data);
                 })
