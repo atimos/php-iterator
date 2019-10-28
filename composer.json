@@ -35,8 +35,8 @@
         "style:fix": "phpcbf ./src ./test --standard=./cs-ruleset.xml --extensions=php",
         "analyze": "psalm",
         "mess:check": "phpmd ./src,./test text ./phpmd-ruleset.xml",
-        "test:prop": "phpunit --testdox --no-coverage --testsuite PropTest",
-        "test:unit": "phpunit --testdox --no-coverage --testsuite UnitTest",
+        "test:prop": "phpunit --testdox --testsuite PropTest",
+        "test:unit": "phpunit --testdox --testsuite UnitTest",
         "test": "phpunit --testdox",
         "qa": [
             "@analyze",

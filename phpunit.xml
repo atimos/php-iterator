@@ -15,7 +15,6 @@
     </filter>
 
     <logging>
-        <log type="coverage-text" target="php://stdout" showOnlySummary="true"/>
         <log type="coverage-html" target="./report/coverage/html"/>
     </logging>
 </phpunit>
