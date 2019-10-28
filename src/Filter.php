@@ -6,8 +6,6 @@ namespace LazyIter;
 
 use PhpOption\Option;
 
-use function DeepCopy\deep_copy;
-
 /** @template I */
 class Filter implements Iter
 {
@@ -30,7 +28,7 @@ class Filter implements Iter
         $item = $this->inner->next();
 
         while ($item->isDefined()) {
-            if (($this->filter)(deep_copy($item->get()))) {
+            if (($this->filter)($item->get())) {
                 return $item;
             }
             $item = $this->inner->next();

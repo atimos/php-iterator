@@ -7,9 +7,10 @@ namespace LazyIter;
 use PhpOption\{None, Option};
 
 use function count;
+use function DeepCopy\deep_copy;
 
 /** @template I */
-class Cycle implements Iter
+class CopyCycle implements Iter
 {
     use IterImpl;
 
@@ -33,7 +34,7 @@ class Cycle implements Iter
         $item = $this->inner->next();
 
         if ($item->isDefined()) {
-            array_unshift($this->sourceCycle, $item);
+            array_unshift($this->sourceCycle, deep_copy($item));
             return $item;
         }
 

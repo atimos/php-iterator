@@ -42,12 +42,12 @@ class IteratorsTest extends TestCase
     }
 
     /** @test */
-    public function stdIteratorChangingItemShouldNotChangeSource(): void
+    public function stdIteratorCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1], (object) ['key' => 2]];
         $expected = [(object) ['key' => 1], (object) ['key' => 2]];
 
-        foreach (new IterableIter($source) as $value) {
+        foreach ((new IterableIter($source))->getIteratorCopy() as $value) {
             $value->key = 5;
         }
 
@@ -55,11 +55,11 @@ class IteratorsTest extends TestCase
     }
 
     /** @test */
-    public function mapChangingItemShouldNotChangeSource(): void
+    public function mapCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        $iter = (new IterableIter($source))->map(function ($item) {
+        $iter = (new IterableIter($source))->mapCopy(function ($item) {
             $item->key = 5;
         });
 
@@ -69,11 +69,11 @@ class IteratorsTest extends TestCase
     }
 
     /** @test */
-    public function filterChangingItemShouldNotChangeSource(): void
+    public function filterCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        $iter = (new IterableIter($source))->filter(function ($item) {
+        $iter = (new IterableIter($source))->filterCopy(function ($item) {
             $item->key = 5;
             return true;
         });
@@ -84,11 +84,11 @@ class IteratorsTest extends TestCase
     }
 
     /** @test */
-    public function skipWhileChangingItemShouldNotChangeSource(): void
+    public function skipWhileCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        $iter = (new IterableIter($source))->skipWhile(function ($item) {
+        $iter = (new IterableIter($source))->skipWhileCopy(function ($item) {
             $item->key = 5;
             return true;
         });
@@ -111,11 +111,11 @@ class IteratorsTest extends TestCase
     }
 
     /** @test */
-    public function takeWhileChangingItemShouldNotChangeSource(): void
+    public function takeWhileCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        $iter = (new IterableIter($source))->takeWhile(function ($item) {
+        $iter = (new IterableIter($source))->takeWhileCopy(function ($item) {
             $item->key = 5;
             return true;
         });
@@ -126,11 +126,11 @@ class IteratorsTest extends TestCase
     }
 
     /** @test */
-    public function cycleChangingItemShouldNotChangeOutput(): void
+    public function cycleCopyChangingItemShouldNotChangeOutput(): void
     {
         $source = [(object) ['key' => 1], (object) ['key' => 2]];
 
-        $iter = (new IterableIter($source))->cycle();
+        $iter = (new IterableIter($source))->cycleCopy();
 
         $iter->next();
         $iter->next();
@@ -143,15 +143,27 @@ class IteratorsTest extends TestCase
     }
 
     /** @test */
-    public function inspectChangingItemShouldNotChangeSource(): void
+    public function inspectCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        $iter = (new IterableIter($source))->inspect(function ($item) {
+        $iter = (new IterableIter($source))->inspectCopy(function ($item) {
             $item->key = 5;
         });
 
         $iter->next();
+
+        $this->assertEquals([(object) ['key' => 1]], $source);
+    }
+
+    /** @test */
+    public function forEachCopyChangingItemShouldNotChangeSource(): void
+    {
+        $source = [(object) ['key' => 1]];
+
+        (new IterableIter($source))->forEachCopy(function ($item) {
+            $item->key = 5;
+        });
 
         $this->assertEquals([(object) ['key' => 1]], $source);
     }

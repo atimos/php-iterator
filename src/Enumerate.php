@@ -22,7 +22,7 @@ class Enumerate implements Iter
         $this->idx = 0;
     }
 
-    /** Option<array{0: int, 1: I}> */
+    /** @return Option<array{0: int, 1: I}> */
     public function next(): Option
     {
         $item = $this->inner->next();

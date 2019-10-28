@@ -9,12 +9,17 @@ use PhpOption\{Option, Some, None};
 use function count as std_count;
 use function DeepCopy\deep_copy;
 
+/**
+ * @template I
+ * @param Iter<I> $iter
+ * @param callable(I):void $forEach
+ */
 function for_each(Iter $iter, callable $forEach): void
 {
     $item = $iter->next();
 
     while ($item->isDefined()) {
-        $forEach(deep_copy($item->get()));
+        $forEach($item->get());
         $item = $iter->next();
     }
 }
@@ -33,6 +38,27 @@ function fold(Iter $iter, $init, callable $fold)
     $result = $init;
 
     while ($item->isDefined()) {
+        $result = $fold($result, $item->get());
+        $item = $iter->next();
+    }
+
+    return $result;
+}
+
+/**
+ * @template I
+ * @template R
+ * @param Iter<I> $iter
+ * @param R $init
+ * @param callable(R, I):R $fold
+ * @return R
+ */
+function fold_copy(Iter $iter, $init, callable $fold)
+{
+    $item = $iter->next();
+    $result = $init;
+
+    while ($item->isDefined()) {
         $result = $fold(deep_copy($result), deep_copy($item->get()));
         $item = $iter->next();
     }
@@ -46,7 +72,7 @@ function fold(Iter $iter, $init, callable $fold)
  */
 function count(Iter $iter): int
 {
-    return non_copy_fold($iter, 0, static function (int $count): int {
+    return fold($iter, 0, static function (int $count): int {
         return $count + 1;
     });
 }
@@ -58,7 +84,7 @@ function count(Iter $iter): int
  */
 function last(Iter $iter): Option
 {
-    return non_copy_fold(
+    return fold(
         $iter,
         None::create(),
         /**
@@ -94,7 +120,7 @@ function find(Iter $iter, callable $find): Option
     $item = $iter->next();
 
     while ($item->isDefined()) {
-        if (($find)(deep_copy($item->get()))) {
+        if (($find)($item->get())) {
             return $item;
         }
         $item = $iter->next();
@@ -115,7 +141,7 @@ function position(Iter $iter, callable $find): Option
     $item = $iter->next();
 
     while ($item->isDefined()) {
-        if (($find)(deep_copy($item->get()))) {
+        if (($find)($item->get())) {
             return Some::create($count);
         }
         $count += 1;
@@ -136,7 +162,7 @@ function all(Iter $iter, callable $all): bool
     $item = $iter->next();
 
     while ($item->isDefined()) {
-        if (!($all)(deep_copy($item->get()))) {
+        if (!($all)($item->get())) {
             return false;
         }
         $result = true;
@@ -156,7 +182,7 @@ function any(Iter $iter, callable $any): bool
     $item = $iter->next();
 
     while ($item->isDefined()) {
-        if (($any)(deep_copy($item->get()))) {
+        if (($any)($item->get())) {
             return true;
         }
         $item = $iter->next();
@@ -172,7 +198,7 @@ function any(Iter $iter, callable $any): bool
  */
 function max(Iter $iter): Option
 {
-    return non_copy_fold(
+    return fold(
         $iter,
         None::create(),
         /**
@@ -197,7 +223,7 @@ function max(Iter $iter): Option
  */
 function min(Iter $iter): Option
 {
-    return non_copy_fold(
+    return fold(
         $iter,
         None::create(),
         /**
@@ -222,7 +248,7 @@ function min(Iter $iter): Option
  */
 function to_array(Iter $iter): array
 {
-    return non_copy_fold(
+    return fold(
         $iter,
         [],
         /**
@@ -245,7 +271,7 @@ function to_array(Iter $iter): array
  */
 function to_assoc_array(Iter $iter): array
 {
-    return non_copy_fold(
+    return fold(
         $iter,
         [],
         /**
@@ -259,25 +285,4 @@ function to_assoc_array(Iter $iter): array
             return $result;
         }
     );
-}
-
-/**
- * @template I
- * @template R
- * @param Iter<I> $iter
- * @param R $init
- * @param callable(R, I):R $fold
- * @return R
- */
-function non_copy_fold(Iter $iter, $init, callable $fold)
-{
-    $item = $iter->next();
-    $result = $init;
-
-    while ($item->isDefined()) {
-        $result = $fold($result, $item->get());
-        $item = $iter->next();
-    }
-
-    return $result;
 }

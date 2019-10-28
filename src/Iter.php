@@ -37,10 +37,23 @@ interface Iter extends IteratorAggregate, countable
     public function find(callable $find): Option;
 
     /**
+     * @param callable(I):bool $find
+     * @return Option<I>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function findCopy(callable $find): Option;
+
+    /**
      * @return Option<int>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function position(callable $find): Option;
+
+    /**
+     * @return Option<int>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function positionCopy(callable $find): Option;
 
     /**
      * @return Peekable<I>
@@ -63,11 +76,26 @@ interface Iter extends IteratorAggregate, countable
     public function map(callable $mapper): Map;
 
     /**
+     * @template U
+     * @param callable(I):U $mapper
+     * @return CopyMap<U>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function mapCopy(callable $mapper): CopyMap;
+
+    /**
      * @param callable(I):bool $filter
      * @return Filter<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function filter(callable $filter): Filter;
+
+    /**
+     * @param callable(I):bool $filter
+     * @return Filter<I>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function filterCopy(callable $filter): Filter;
 
     /**
      * @return StepBy<I>
@@ -89,6 +117,13 @@ interface Iter extends IteratorAggregate, countable
     public function skipWhile(callable $skipWhile): SkipWhile;
 
     /**
+     * @param callable(I):bool $skipWhile
+     * @return SkipWhile<I>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function skipWhileCopy(callable $skipWhile): SkipWhile;
+
+    /**
      * @return Take<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
@@ -100,6 +135,13 @@ interface Iter extends IteratorAggregate, countable
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function takeWhile(callable $takeWhile): TakeWhile;
+
+    /**
+     * @param callable(I):bool $takeWhile
+     * @return TakeWhile<I>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function takeWhileCopy(callable $takeWhile): TakeWhile;
 
     /**
      * @template U
@@ -124,6 +166,12 @@ interface Iter extends IteratorAggregate, countable
     public function cycle(): Cycle;
 
     /**
+     * @return CopyCycle<I>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function cycleCopy(): CopyCycle;
+
+    /**
      * @return Fuse<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
@@ -137,6 +185,13 @@ interface Iter extends IteratorAggregate, countable
     public function inspect(callable $inspect): Inspector;
 
     /**
+     * @param callable(I):void $inspect
+     * @return Inspector<I>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function inspectCopy(callable $inspect): Inspector;
+
+    /**
      * @template R
      * @param R $init
      * @param callable(R, I):R $fold
@@ -144,6 +199,15 @@ interface Iter extends IteratorAggregate, countable
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function fold($init, callable $fold);
+
+    /**
+     * @template R
+     * @param R $init
+     * @param callable(R, I):R $fold
+     * @return R
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function foldCopy($init, callable $fold);
 
     /** @psalm-suppress PossiblyUnusedMethod */
     public function count(): int;
@@ -155,10 +219,22 @@ interface Iter extends IteratorAggregate, countable
     public function all(callable $all): bool;
 
     /**
+     * @param callable(I):bool $all
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function allCopy(callable $all): bool;
+
+    /**
      * @param callable(I):bool $any
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function any(callable $any): bool;
+
+    /**
+     * @param callable(I):bool $any
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function anyCopy(callable $any): bool;
 
     /**
      * @return Option<I>
@@ -179,10 +255,22 @@ interface Iter extends IteratorAggregate, countable
     public function forEach(callable $forEach): void;
 
     /**
+     * @param callable(I):void $forEach
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function forEachCopy(callable $forEach): void;
+
+    /**
      * @return Traversable<I>
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function getIterator(): Traversable;
+
+    /**
+     * @return Traversable<I>
+     * @psalm-suppress PossiblyUnusedMethod
+     */
+    public function getIteratorCopy(): Traversable;
 
     /**
      * @return array<int, I>

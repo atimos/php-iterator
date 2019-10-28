@@ -24,9 +24,19 @@ trait IterImpl
         return new Map($this, $mapper);
     }
 
+    public function mapCopy(callable $mapper): CopyMap
+    {
+        return new CopyMap($this, $mapper);
+    }
+
     public function filter(callable $filter): Filter
     {
         return new Filter($this, $filter);
+    }
+
+    public function filterCopy(callable $filter): Filter
+    {
+        return new Filter($this->map('DeepCopy\deep_copy'), $filter);
     }
 
     public function stepBy(int $step): StepBy
@@ -44,6 +54,11 @@ trait IterImpl
         return new SkipWhile($this, $skipWhile);
     }
 
+    public function skipWhileCopy(callable $skipWhile): SkipWhile
+    {
+        return new SkipWhile($this->map('DeepCopy\deep_copy'), $skipWhile);
+    }
+
     public function take(int $take): Take
     {
         return new Take($this, $take);
@@ -52,6 +67,11 @@ trait IterImpl
     public function takeWhile(callable $takeWhile): TakeWhile
     {
         return new TakeWhile($this, $takeWhile);
+    }
+
+    public function takeWhileCopy(callable $takeWhile): TakeWhile
+    {
+        return new TakeWhile($this->map('DeepCopy\deep_copy'), $takeWhile);
     }
 
     public function zip(Iter $other): Zip
@@ -69,6 +89,11 @@ trait IterImpl
         return new Cycle($this);
     }
 
+    public function cycleCopy(): CopyCycle
+    {
+        return new CopyCycle($this);
+    }
+
     public function fuse(): Fuse
     {
         return new Fuse($this);
@@ -79,10 +104,21 @@ trait IterImpl
         return new Inspector($this, $inspect);
     }
 
+    public function inspectCopy(callable $inspect): Inspector
+    {
+        return new Inspector($this->map('DeepCopy\deep_copy'), $inspect);
+    }
+
     /** @psalm-suppress PossiblyUnusedMethod */
     public function getIterator(): Traversable
     {
         return new StdIterator($this);
+    }
+
+    /** @psalm-suppress PossiblyUnusedMethod */
+    public function getIteratorCopy(): Traversable
+    {
+        return new StdIterator($this->map('DeepCopy\deep_copy'));
     }
 
     public function last(): Option
@@ -100,15 +136,31 @@ trait IterImpl
         return find($this, $find);
     }
 
+    public function findCopy(callable $find): Option
+    {
+        return find($this->map('DeepCopy\deep_copy'), $find);
+    }
+
     /** @return Option<int> */
     public function position(callable $find): Option
     {
         return position($this, $find);
     }
 
+    /** @return Option<int> */
+    public function positionCopy(callable $find): Option
+    {
+        return position($this->map('DeepCopy\deep_copy'), $find);
+    }
+
     public function fold($init, callable $fold)
     {
         return fold($this, $init, $fold);
+    }
+
+    public function foldCopy($init, callable $fold)
+    {
+        return fold_copy($this, $init, $fold);
     }
 
     /** @psalm-suppress PossiblyUnusedMethod */
@@ -122,9 +174,19 @@ trait IterImpl
         return all($this, $all);
     }
 
+    public function allCopy(callable $all): bool
+    {
+        return all($this->map('DeepCopy\deep_copy'), $all);
+    }
+
     public function any(callable $any): bool
     {
         return any($this, $any);
+    }
+
+    public function anyCopy(callable $any): bool
+    {
+        return any($this->map('DeepCopy\deep_copy'), $any);
     }
 
     public function max(): Option
@@ -140,6 +202,11 @@ trait IterImpl
     public function forEach(callable $forEach): void
     {
         for_each($this, $forEach);
+    }
+
+    public function forEachCopy(callable $forEach): void
+    {
+        for_each($this->map('DeepCopy\deep_copy'), $forEach);
     }
 
     /** @return array<int, mixed> */

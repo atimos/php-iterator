@@ -7,8 +7,6 @@ namespace LazyIter;
 use Iterator;
 use PhpOption\Option;
 
-use function DeepCopy\deep_copy;
-
 /** @template I */
 class StdIterator implements Iterator
 {
@@ -49,7 +47,7 @@ class StdIterator implements Iterator
             return null;
         }
 
-        return deep_copy($this->item->get());
+        return $this->item->get();
     }
 
     public function key(): ?int

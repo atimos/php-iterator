@@ -15,11 +15,11 @@ use PHPUnit\Framework\TestCase;
 class FunctionsTest extends TestCase
 {
     /** @test */
-    public function findChangingItemShouldNotChangeSource(): void
+    public function findCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        (new IterableIter($source))->find(function ($item) {
+        (new IterableIter($source))->findCopy(function ($item) {
             $item->key = 5;
             return false;
         });
@@ -28,11 +28,11 @@ class FunctionsTest extends TestCase
     }
 
     /** @test */
-    public function positionChangingItemShouldNotChangeSource(): void
+    public function positionCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        (new IterableIter($source))->position(function ($item) {
+        (new IterableIter($source))->positionCopy(function ($item) {
             $item->key = 5;
             return false;
         });
@@ -41,26 +41,17 @@ class FunctionsTest extends TestCase
     }
 
     /** @test */
-    public function foldChangingItemShouldNotChangeSource()
+    public function foldCopyChangingItemShouldNotChangeItems()
     {
         $source = [(object) ['key' => 1]];
-
-        (new IterableIter($source))->fold(true, function ($_, $item) {
-            $item->key = 4;
-        });
-
-        $this->assertEquals([(object) ['key' => 1]], $source);
-    }
-
-    /** @test */
-    public function foldChangingResultShouldNotChangeSource()
-    {
         $result = (object) ['key' => 1];
 
-        (new IterableIter([1]))->fold($result, function ($result) {
-            $result->key = 2;
+        (new IterableIter($source))->foldCopy($result, function ($result, $item) {
+            $item->key = 4;
+            $result->key = 4;
         });
 
+        $this->assertEquals([(object) ['key' => 1]], $source);
         $this->assertEquals((object) ['key' => 1], $result);
     }
 
@@ -79,11 +70,11 @@ class FunctionsTest extends TestCase
     }
 
     /** @test */
-    public function allChangingItemShouldNotChangeSource(): void
+    public function allCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        (new IterableIter($source))->all(function ($item) {
+        (new IterableIter($source))->allCopy(function ($item) {
             $item->key = 5;
             return true;
         });
@@ -106,11 +97,11 @@ class FunctionsTest extends TestCase
     }
 
     /** @test */
-    public function anyChangingItemShouldNotChangeSource(): void
+    public function anyCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        (new IterableIter($source))->any(function ($item) {
+        (new IterableIter($source))->anyCopy(function ($item) {
             $item->key = 5;
             return false;
         });
@@ -119,11 +110,11 @@ class FunctionsTest extends TestCase
     }
 
     /** @test */
-    public function forEachChangingItemShouldNotChangeSource(): void
+    public function forEachCopyChangingItemShouldNotChangeSource(): void
     {
         $source = [(object) ['key' => 1]];
 
-        (new IterableIter($source))->forEach(function ($item) {
+        (new IterableIter($source))->forEachCopy(function ($item) {
             $item->key = 5;
         });
 

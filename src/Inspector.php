@@ -6,8 +6,6 @@ namespace LazyIter;
 
 use PhpOption\Option;
 
-use function DeepCopy\deep_copy;
-
 /**
  * @template I
  */
@@ -31,7 +29,7 @@ class Inspector implements Iter
         return $this->inner->next() ->map(
             /** @param I $item @return I */
             function ($item) {
-                ($this->inspect)(deep_copy($item));
+                ($this->inspect)($item);
                 return $item;
             }
         );

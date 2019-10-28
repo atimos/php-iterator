@@ -6,8 +6,6 @@ namespace LazyIter;
 
 use PhpOption\Option;
 
-use function DeepCopy\deep_copy;
-
 /** @template I */
 class SkipWhile implements Iter
 {
@@ -36,7 +34,7 @@ class SkipWhile implements Iter
         $item = $this->inner->next();
 
         while ($item->isDefined()) {
-            if (!($this->skipWhile)(deep_copy($item->get()))) {
+            if (!($this->skipWhile)($item->get())) {
                 $this->found = true;
                 return $item;
             }

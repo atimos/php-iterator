@@ -6,8 +6,6 @@ namespace LazyIter;
 
 use PhpOption\{None, Option};
 
-use function DeepCopy\deep_copy;
-
 /** @template I */
 class TakeWhile implements Iter
 {
@@ -37,7 +35,7 @@ class TakeWhile implements Iter
         $item = $this->inner->next();
 
         if ($item->isDefined()) {
-            if (!($this->takeWhile)(deep_copy($item->get()))) {
+            if (!($this->takeWhile)($item->get())) {
                 $this->done = true;
                 return None::create();
             }

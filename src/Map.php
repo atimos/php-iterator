@@ -6,8 +6,6 @@ namespace LazyIter;
 
 use PhpOption\Option;
 
-use function DeepCopy\deep_copy;
-
 /**
  * @template I
  * @template N
@@ -33,7 +31,7 @@ class Map implements Iter
         return $this->inner->next()->map(
             /** @param I $item @return N */
             function ($item) {
-                return ($this->map)(deep_copy($item));
+                return ($this->map)($item);
             }
         );
     }
